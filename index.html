@@ -549,7 +549,7 @@ function drawMonthlyComparison(){
  }
  function refreshCards(){
   const hasDate=!!(state.month||state.day);
-  setCard(0,fmt(CPH.CARD.TotalPendentes),'Estoque consolidado atual • sem histórico por mês');
+  setCard(0,fmt(CPH.CARD.TotalPendentes),'Estoque consolidado atual');
   setCard(1,fmt(sum('Julgamentos')),hasDate?'Julgamentos no período selecionado':'Julgamentos no período');
   setCard(2,fmt(sum('DataCadastro')),hasDate?'Cadastros identificados na seleção • fonte parcial':'Somente datas disponíveis no JSON');
   if(state.age!==null){
