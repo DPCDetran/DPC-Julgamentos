@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Detran.SP | Central de Julgamentos</title><script onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.7/chart.umd.min.js'" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><style>
+:root{--navy:#101c32;--blue:#3568f5;--muted:#748098;--bg:#f5f7fb;--line:#e8edf4;--green:#07966b;--red:#e45663;--amber:#e7a12b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#17243b;font:14px 'Segoe UI',Arial,sans-serif}button,select,input{font:inherit}button{cursor:pointer}.shell{display:flex;min-height:100vh}.sidebar{width:240px;flex:none;background:var(--navy);color:white;padding:28px 18px;display:flex;flex-direction:column;gap:24px}.detran-logo{display:block;width:178px;max-width:100%;height:auto;max-height:84px;object-fit:contain;object-position:left center;margin-bottom:9px}.brand{font-size:23px;font-weight:800;letter-spacing:-.8px}.brand span{color:#7b9fff}.brand small{display:block;font-size:11px;letter-spacing:2px;font-weight:500;color:#a9b9d4;margin-top:4px}.navbutton{display:flex;align-items:center;gap:12px;padding:13px 15px;color:#b9c7dd;border:0;border-radius:11px;background:transparent;width:100%;text-align:left;margin-bottom:6px}.navbutton.active,.navbutton:hover{background:#26395b;color:#fff}.sidefoot{margin-top:auto;color:#899bb6;font-size:11px;line-height:1.7}.main{flex:1;min-width:0;padding:30px 35px;max-width:1700px;margin:auto;width:100%}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:23px;flex-wrap:wrap}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#657a9a;font-weight:800}.top h1{font-size:31px;letter-spacing:-1.3px;margin:6px 0}.subtitle{color:var(--muted);margin:0}.controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}select,input{border:1px solid #e0e7f0;border-radius:9px;padding:11px 12px;background:white;color:#20324d;outline:none}.btn{border:0;border-radius:9px;background:var(--blue);color:#fff;font-weight:700;padding:12px 15px}.btn.outline{background:#fff;color:#344e75;border:1px solid #e0e7f0}.notice{background:#edf3ff;border:1px solid #dbe6ff;border-radius:11px;color:#46648e;padding:10px 14px;font-size:12px;margin-bottom:20px}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.metric{min-height:142px}.metric{background:white;border:1px solid var(--line);border-radius:16px;padding:20px 21px;box-shadow:0 4px 22px #152e5706}.metric .head{display:flex;justify-content:space-between;color:#65748b;font-size:12px;font-weight:650}.metric .glyph{font-size:19px;color:#7e9eff}.metric .value{font-size:31px;font-weight:800;letter-spacing:-1px;margin:12px 0 8px}.metric .hint{font-size:12px;color:#8a98aa}.metric .hint strong{color:var(--green)}.layout{display:grid;grid-template-columns:1.55fr 1fr;gap:16px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:21px;min-width:0;box-shadow:0 4px 22px #152e5706}.panel h2{font-size:16px;margin:0 0 5px;letter-spacing:-.2px}.panel .desc{color:#8b99aa;font-size:12px;margin-bottom:16px}.chart{height:240px;position:relative}.chart.compact{height:210px}.span2{grid-column:1/-1}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.mini{padding:14px;background:#f6f8fc;border-radius:11px}.mini .label{font-size:12px;color:#667991}.mini strong{display:block;font-size:23px;margin:8px 0}.mini .bar{height:5px;border-radius:8px;background:#dfe6f1;overflow:hidden}.mini .bar i{display:block;height:100%;border-radius:8px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.tablewrap{overflow:auto;max-height:310px}table{width:100%;border-collapse:collapse;text-align:left}th{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#8796aa;font-weight:750;border-bottom:1px solid var(--line);padding:11px 8px;position:sticky;top:0;background:white}td{padding:12px 8px;border-bottom:1px solid #f0f2f6;font-size:13px}tbody tr:hover{background:#f6f9ff}.tag{display:inline-block;padding:5px 8px;border-radius:6px;background:#e5f7ee;color:#078358;font-weight:750;font-size:11px}.tag.warn{background:#fff2d9;color:#a8750b}.tag.bad{background:#ffe8eb;color:#ca4653}.progress{height:7px;border-radius:10px;background:#edf1f6;overflow:hidden}.progress i{height:100%;display:block;background:var(--blue);border-radius:10px}.section{display:none}.section.active{display:block}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}.detailsfilter{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}.detailsfilter input{min-width:220px;flex:1}.footer{color:#9ca9ba;font-size:11px;text-align:center;padding:20px 0 0}@media(max-width:1150px){.sidebar{width:195px}.main{padding:23px}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:800px){.shell{display:block}.sidebar{width:auto;display:block;padding:15px}.sidebar nav{display:flex;overflow:auto}.navbutton{white-space:nowrap;width:auto}.sidefoot{display:none}.main{padding:16px}.layout,.twocol{grid-template-columns:1fr}.span2{grid-column:auto}.summary{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.metrics{grid-template-columns:1fr 1fr}.metric{padding:13px}.metric .value{font-size:24px}.summary{grid-template-columns:1fr 1fr}}
+</style><style>
+.simcontrols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:14px 0 20px}.simcontrols label{font-size:12px;color:#53627b;font-weight:600}.simcontrols strong{display:block;color:#183256;font-size:20px;margin:6px 0}.simcontrols input{width:100%;accent-color:#3568f5;margin-top:8px}.note-risk{margin-top:15px;padding:12px;background:#f2f6ff;border-radius:10px;color:#596b87;font-size:12px}.section .chart{min-height:0}.section .panel{align-self:start}.section .layout{align-items:start}.section .tablewrap{max-height:345px;overflow:auto}@media(max-width:850px){.simcontrols{grid-template-columns:1fr}}
+</style><style>.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.cal-week{text-align:center;color:#8491a6;font-size:11px;font-weight:700;padding:8px 0}.cal-blank{min-height:55px}.cal-day{border:1px solid #e0e8f3;border-radius:9px;min-height:62px;background:#f5f7fb;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;color:#315174}.cal-day strong{font-size:16px}.cal-day small{font-size:11px}.cal-day.low{background:#d7e6ff}.cal-day.mid{background:#80b2fb;color:#092f69}.cal-day.high{background:#3568f5;color:#fff}.cal-day.selected{outline:3px solid #152b55;outline-offset:2px}.cal-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.calendar-foot{display:flex;gap:14px;justify-content:flex-end;margin-top:13px;flex-wrap:wrap;font-size:11px;color:#64748b}.legend-square{display:inline-block;width:11px;height:11px;margin-right:5px;border-radius:3px}.day-detail{background:#f2f6fc;border-radius:9px;padding:12px 14px;margin-top:12px;font-size:12px;color:#49617f}.alert-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.alert-box{border-radius:11px;padding:16px;background:#f6f8fc}.alert-box strong{display:block;font-size:25px;margin:8px 0}.alert-box small{color:#64748b}.alert-box.urgent{background:#fff0f2;color:#bd3e50}.alert-box.warning{background:#fff7e8;color:#9d6717}@media(max-width:850px){.alert-grid{grid-template-columns:repeat(2,1fr)}.cal-day{min-height:48px}.cal-actions{gap:5px}.cal-actions .btn{padding:8px}}@media(max-width:520px){.calendar-grid{gap:3px}.cal-day{min-height:42px}.cal-day strong{font-size:12px}.cal-day small{font-size:9px}.cal-blank{min-height:42px}}</style><style>
+/* Alertas operacionais: cores, severidade e barras legíveis */
+.alert-grid{grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch}
+.alert-box{min-width:0;padding:17px 17px 15px;border-radius:15px;border:1px solid var(--alert-border);border-top:4px solid var(--alert-main);background:var(--alert-bg);color:#1d304c;box-shadow:0 7px 20px #1d34570b;display:flex;flex-direction:column;gap:10px}
+.alert-box.severity-blue{--alert-main:#3b82f6;--alert-bg:#f0f6ff;--alert-border:#d6e6ff}
+.alert-box.severity-yellow{--alert-main:#d99a16;--alert-bg:#fff9e8;--alert-border:#f7e7ba}
+.alert-box.severity-orange{--alert-main:#e87930;--alert-bg:#fff3e9;--alert-border:#fbd8c0}
+.alert-box.severity-red{--alert-main:#d83e55;--alert-bg:#fff0f2;--alert-border:#ffd0d7}
+.alert-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.alert-symbol{background:var(--alert-main);color:#fff;border-radius:10px;width:31px;height:31px;display:grid;place-items:center;font-size:17px;font-weight:800}
+.alert-severity{font-size:10px;font-weight:800;color:var(--alert-main);text-align:right}
+.alert-label{font-size:13px;font-weight:800;color:#293c58}
+.alert-amount{font-size:29px;font-weight:850;line-height:1;color:var(--alert-main);letter-spacing:-.8px}
+.alert-amount span{font-size:11px;font-weight:650;color:#63758d;letter-spacing:0}
+.alert-track{height:8px;border-radius:10px;background:#dce4ee;overflow:hidden}
+.alert-track i{display:block;height:100%;border-radius:10px;background:var(--alert-main)}
+.alert-footer{display:flex;justify-content:space-between;gap:9px;align-items:flex-end;font-size:10px;color:#63758d;margin-top:auto;line-height:1.35}
+.alert-footer strong{color:var(--alert-main);text-align:right;white-space:nowrap}
+.section .chart canvas{display:block;max-width:100%}
+@media(max-width:1200px){.alert-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.alert-grid{grid-template-columns:1fr}}
+
+/* Destaque operacional reforçado */
+.alert-grid{gap:14px!important}
+.alert-box.severity-blue{--alert-main:#2563eb;--alert-bg:#e9f2ff;--alert-border:#91b9ff}
+.alert-box.severity-yellow{--alert-main:#b77908;--alert-bg:#fff1c7;--alert-border:#f2c453}
+.alert-box.severity-orange{--alert-main:#c84b13;--alert-bg:#ffe2cd;--alert-border:#fa9e69}
+.alert-box.severity-red{--alert-main:#b91c37;--alert-bg:#ffe0e6;--alert-border:#f27d91}
+.alert-box{border-left:5px solid var(--alert-main)!important;box-shadow:0 8px 24px #16294714!important}
+.alert-box .alert-symbol{width:39px;height:39px;font-size:21px;box-shadow:0 4px 10px #0002}
+.alert-box .alert-amount{font-size:34px}
+.alert-box .alert-track{height:11px;background:#ffffffbd;border:1px solid #0000000b}
+.alert-box .alert-severity{border:1px solid var(--alert-main);padding:5px 7px;border-radius:7px;background:#ffffff9c}
+.alert-box.severity-red{animation:alertPulse 3s ease-in-out infinite}
+@keyframes alertPulse{50%{box-shadow:0 6px 28px #d83e5530}}
+</style><style>
+/* Alertas prioritários imediatamente abaixo do cabeçalho */
+.alerts-top{margin:0 0 18px}
+.alerts-top-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.alerts-top-head strong{font-size:15px;color:#1a3154;letter-spacing:-.2px}
+.alerts-top-head span{font-size:11px;color:#7889a0}
+.alerts-top .alert-grid{gap:10px!important}
+.alerts-top .alert-box{padding:12px 14px 11px;gap:6px;border-radius:12px;box-shadow:0 3px 12px #172e4b12!important}
+.alerts-top .alert-box .alert-symbol{width:29px;height:29px;font-size:16px}
+.alerts-top .alert-box .alert-amount{font-size:27px;margin:1px 0}
+.alerts-top .alert-label{font-size:12px}
+.alerts-top .alert-severity{font-size:9px;padding:4px 6px}
+.alerts-top .alert-footer{font-size:10px}
+.alerts-top .alert-track{height:7px}
+@media(max-width:1250px){.alerts-top .alert-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.alerts-top .alert-grid{grid-template-columns:1fr}}
+</style><style>
+/* Faixa de alertas compacta: quatro cards em uma unica linha no desktop */
+.alerts-top{margin-bottom:12px}
+.alerts-top-head{margin-bottom:6px}
+.alerts-top .alert-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}
+.alerts-top .alert-box{padding:9px 11px!important;gap:4px!important;border-radius:10px;min-height:94px;border-top-width:3px;box-shadow:none!important}
+.alerts-top .alert-heading{gap:5px}
+.alerts-top .alert-box .alert-symbol{width:21px;height:21px;font-size:12px;border-radius:6px;box-shadow:none}
+.alerts-top .alert-severity{font-size:8px;padding:2px 4px;white-space:nowrap}
+.alerts-top .alert-label{font-size:11px;line-height:1.1}
+.alerts-top .alert-amount{font-size:21px!important;margin:0!important;letter-spacing:-.4px}
+.alerts-top .alert-amount span{font-size:10px}
+.alerts-top .alert-track{height:4px}
+.alerts-top .alert-footer{font-size:9px;align-items:center}
+.alerts-top .alert-footer strong{font-size:11px}
+@media(max-width:900px){.alerts-top .alert-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){.alerts-top .alert-grid{grid-template-columns:1fr!important}}
+.navbutton .ui-icon{flex:none;opacity:.9}.navbutton.active .ui-icon{color:#91b4ff}.metric .glyph .ui-icon{width:21px;height:21px}.alert-symbol .ui-icon{width:15px;height:15px}.alerts-top-head strong{display:flex;align-items:center;gap:7px}</style><style id="themeStyles">
+/* Tema escuro: contraste integral em cards, gráficos, tabelas, filtros e calendário */
+body.theme-dark{--bg:#0b1220;--navy:#080f1c;--line:#26354a;--muted:#a4b4ca;--blue:#79a4ff;color:#e8f0fc;background:var(--bg);color-scheme:dark}
+body.theme-dark .main{color:#e8f0fc}
+body.theme-dark .panel,body.theme-dark .metric{background:#151f30;border-color:#2b3a50;box-shadow:0 5px 22px #0003}
+body.theme-dark .panel h2,body.theme-dark .metric .value,body.theme-dark .top h1,body.theme-dark .alerts-top-head strong,body.theme-dark .brand{color:#f0f5ff}
+body.theme-dark .subtitle,body.theme-dark .desc,body.theme-dark .eyebrow,body.theme-dark .metric .head,body.theme-dark .metric .hint,body.theme-dark .mini .label,body.theme-dark .footer,body.theme-dark .alerts-top-head span,body.theme-dark .panel .desc{color:#aabbd2}
+body.theme-dark select,body.theme-dark input,body.theme-dark .btn.outline,body.theme-dark .theme-toggle{background:#202e42!important;color:#eaf2ff!important;border-color:#3c4d65!important}
+body.theme-dark select option{background:#202e42;color:#eaf2ff}
+body.theme-dark .mini,body.theme-dark .day-detail,body.theme-dark .note-risk{background:#202e42;color:#d2def0}
+body.theme-dark .mini strong,body.theme-dark .day-detail strong,body.theme-dark .simcontrols strong{color:#f0f5ff}
+body.theme-dark .mini .bar,body.theme-dark .progress{background:#394b63}
+body.theme-dark table th{background:#151f30;color:#aabbd2;border-color:#35445b}
+body.theme-dark table td{color:#dce8f7;border-color:#2b3b51}
+body.theme-dark tbody tr:hover{background:#23344a}
+body.theme-dark .tag{background:#163d35;color:#72e7b8}
+body.theme-dark .tag.warn{background:#4a3719;color:#ffda89}
+body.theme-dark .tag.bad{background:#4c2431;color:#ff9caf}
+body.theme-dark .cal-day{background:#233249;border-color:#41516a;color:#d7e7fa}
+body.theme-dark .cal-day.low{background:#294975;color:#dceaff}
+body.theme-dark .cal-day.mid{background:#3266a8;color:#fff}
+body.theme-dark .cal-day.high{background:#3568f5;color:#fff}
+body.theme-dark .cal-week,body.theme-dark .calendar-foot,body.theme-dark .simcontrols label{color:#b4c3d7}
+body.theme-dark .alert-box.severity-blue{--alert-bg:#142b50;--alert-border:#315ca0;--alert-main:#80adff}
+body.theme-dark .alert-box.severity-yellow{--alert-bg:#443519;--alert-border:#856223;--alert-main:#ffd16a}
+body.theme-dark .alert-box.severity-orange{--alert-bg:#4a291c;--alert-border:#a44b27;--alert-main:#ffad7e}
+body.theme-dark .alert-box.severity-red{--alert-bg:#4a202e;--alert-border:#a53b59;--alert-main:#ff829c}
+body.theme-dark .alert-box{color:#f1f5fc}
+body.theme-dark .alert-label,body.theme-dark .alert-footer,body.theme-dark .alert-amount span{color:#e0e9f6}
+body.theme-dark .alert-severity{background:#172237!important;color:var(--alert-main)!important}
+body.theme-dark .alert-track{background:#17263b!important;border-color:#36485f!important}
+body.theme-dark .alert-symbol{color:#101a2b}
+body.theme-dark .notice{background:#1a3152;border-color:#345781;color:#d3e4ff}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.theme-toggle svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:550px){.theme-toggle{padding:10px!important}}
+</style><style>
+/* Botão de tema minimalista */
+.theme-toggle{width:39px!important;height:39px!important;min-width:39px;padding:0!important;display:inline-flex;align-items:center;justify-content:center;border-radius:50%!important;flex:none}
+.theme-toggle svg{width:19px;height:19px}
+/* Filtros clicáveis com feedback */
+#operationalAlerts .alert-box,#metrics .metric{cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+#operationalAlerts .alert-box:hover,#metrics .metric:hover{transform:translateY(-2px);box-shadow:0 6px 20px #142a4c23!important}
+#operationalAlerts .alert-box:focus-visible,#metrics .metric:focus-visible{outline:3px solid #4f86ff;outline-offset:2px}
+#operationalAlerts .alert-box.is-selected{outline:3px solid var(--alert-main);outline-offset:2px}
+#metrics .metric.is-selected{outline:2px solid #3568f5;outline-offset:1px}
+.filter-indicator{display:none;align-items:center;gap:9px;flex-wrap:wrap;margin:-4px 0 14px;padding:9px 12px;border:1px solid #bcd0f9;background:#edf4ff;border-radius:10px;font-size:12px;color:#254c86}
+.filter-indicator.visible{display:flex}.filter-indicator button{margin-left:auto;border:0;background:#dbe8ff;color:#214a86;border-radius:7px;padding:5px 9px;font-weight:700;cursor:pointer}
+body.theme-dark .filter-indicator{background:#182d4a;border-color:#395d91;color:#e3edff}body.theme-dark .filter-indicator button{background:#2c4b75;color:#fff}
+.chart canvas{cursor:pointer}
+</style><style>
+.drill-panel{margin:0 0 16px;border:1px solid #8eaaf5;box-shadow:0 8px 26px #152e5714}.drill-panel .tablewrap{max-height:255px}.drill-panel .panelhead{margin-bottom:12px}
+#operationalAlerts .alert-box,#metrics .metric{cursor:pointer;transition:transform .15s,border-color .15s}#operationalAlerts .alert-box:hover,#metrics .metric:hover{transform:translateY(-2px);border-color:#7d9ef4}
+.theme-dark .drill-panel{background:#1c2a40;border-color:#5676ac}.theme-dark .drill-panel th{background:#1c2a40;color:#c9d6e8}.theme-dark .drill-panel td{color:#d6e1f1}
+</style><style>.cross-chip{display:inline-block;padding:3px 8px;margin:2px;border-radius:16px;background:rgba(53,104,245,.13);font-weight:600}.alert-box.is-selected{outline:2px solid #3568f5;outline-offset:2px}.alert-box{cursor:pointer}.metric{cursor:pointer}</style><style id="consolidatedFix">.alert-box.severity-green{--alert-main:#07966b;--alert-bg:#e4f8ee;--alert-border:#8bd8b4}body.theme-dark .alert-box.severity-green{--alert-main:#6be0b2;--alert-bg:#173d34;--alert-border:#367a66}.sim-target{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0}.sim-target label{font-weight:700;color:#53627b}.sim-target input{width:110px;text-align:center;font-weight:800}.sim-target span{font-size:12px;color:#7c8ba2}body.theme-dark .sim-target label,body.theme-dark .sim-target span{color:#b8c9de}.sim-target input::-webkit-inner-spin-button{opacity:1}.metric .value{font-variant-numeric:tabular-nums}#simResults strong,#simInputs strong{font-variant-numeric:tabular-nums}@media(min-width:901px){.alerts-top .alert-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}}</style><style>#team,#records{display:none!important}#metrics{grid-template-columns:repeat(4,minmax(0,1fr))}@media(max-width:850px){#metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}</style></head><body><div class="shell"><aside class="sidebar"><div class="brand"><img alt="Logotipo Detran.SP" class="detran-logo" src="data:image/png;base64,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"/><small>INTELIGÊNCIA OPERACIONAL</small></div><nav><button class="navbutton active" data-view="home"><svg aria-hidden="true" class="ui-icon" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24" width="19"><rect height="9" rx="1" width="7" x="3" y="3"></rect><rect height="5" rx="1" width="7" x="14" y="3"></rect><rect height="9" rx="1" width="7" x="14" y="12"></rect><rect height="5" rx="1" width="7" x="3" y="16"></rect></svg> Visão executiva</button><button class="navbutton" data-view="stock"><svg aria-hidden="true" class="ui-icon" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24" width="19"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path><path d="M14 3v5h5M8 13h8M8 17h8"></path></svg> Processos e prazos</button><button class="navbutton" data-view="analytics"><svg aria-hidden="true" class="ui-icon" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24" width="19"><path d="M3 3v18h18M7 16l4-5 4 3 5-7"></path></svg> Análise histórica</button><button class="navbutton" data-view="simulation"><svg aria-hidden="true" class="ui-icon" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24" width="19"><path d="M3 12h4l3-7 4 14 3-7h4"></path></svg> Simulador de fila</button></nav><div class="sidefoot">CENTRAL DE JULGAMENTOS<br/>CPH BOT • Dados agregados<br/>09 de outubro de 2026</div></aside><div class="main"><div class="top"><div><div class="eyebrow">Painel de gestão • Defesas</div><h1 id="pageTitle">Visão executiva</h1><p class="subtitle">Acompanhamento da operação de julgamento em tempo real</p></div><div class="controls"><button aria-label="Ativar tema escuro" aria-pressed="false" class="btn outline theme-toggle" id="themeToggle" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"></path></svg></button><select id="period"><option selected="" value="all">Todo o período</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="180">Últimos 6 meses</option><option value="365">Últimos 12 meses</option></select><select aria-hidden="true" id="judge" style="display:none"><option value="all">Consolidado</option></select><button class="btn outline" id="reset">Limpar</button><button class="btn" id="export">Exportar CSV</button></div></div><div class="alerts-top"><div class="alerts-top-head"><strong>Alertas de prazo • Processos pendentes</strong><span>Faixas de atenção operacional · dados agregados</span></div><div class="alert-grid" id="operationalAlerts"></div></div><div aria-live="polite" class="filter-indicator" id="activeFilter"></div><div class="metrics" id="metrics"></div><section class="section active" id="home"><div class="layout"><div class="panel"><h2>Evolução mensal de julgamentos</h2><div class="desc">Total de julgamentos realizados por mês • CPH BOT</div><div class="chart"><canvas id="flowChart"></canvas></div></div><div class="panel"><h2>Situação dos processos</h2><div class="desc">Distribuição dos pendentes nas quatro faixas de alerta</div><div class="chart"><canvas id="healthChart"></canvas></div></div><div class="panel span2"><div class="panelhead"><div><h2>Monitoramento dos prazos</h2><div class="desc">Priorização operacional por dias desde o cadastro</div></div><span class="tag warn">Atenção aos casos críticos</span></div><div class="summary" id="deadlines"></div></div><div class="panel"><h2>Capacidade e escoamento</h2><div class="desc">Projeção sem novas entradas</div><div class="chart compact"><canvas id="projectionChart"></canvas></div></div><div class="panel"><h2>Composição do estoque pendente</h2><div class="desc">Suspensão e cassação • distribuição dos 9.218 pendentes</div><div class="chart compact"><canvas id="teamMiniChart"></canvas></div></div><div class="panel span2"><div class="panelhead"><div><h2>Calendário mensal — Cadastro de defesas</h2><div class="desc">Distribuição diária dos cadastros; clique em um dia para consultar o movimento</div></div><div class="cal-actions"><button class="btn outline" id="calPrev" type="button">‹ Anterior</button><strong id="calTitle"></strong><button class="btn outline" id="calNext" type="button">Próximo ›</button></div></div><div class="calendar-grid" id="calendarGrid"></div><div class="calendar-foot"><span><i class="legend-square" style="background:#eef2f8"></i>Sem cadastro</span><span><i class="legend-square" style="background:#d7e6ff"></i>Baixo</span><span><i class="legend-square" style="background:#80b2fb"></i>Médio</span><span><i class="legend-square" style="background:#3568f5"></i>Alto</span></div><div class="day-detail" id="calDayDetail">Selecione um dia para ver os detalhes.</div></div></div></section><section class="section" id="stock"><div class="layout"><div class="panel"><h2>Processos por faixa de dias</h2><div class="desc">Mesmas quatro faixas dos cards de alerta</div><div class="chart"><canvas id="ageChart"></canvas></div></div><div class="panel"><h2>Risco operacional</h2><div class="desc">Distribuição do risco conforme os quatro cards de alerta</div><div class="chart"><canvas id="riskChart"></canvas></div></div><div id="oldestRowsPlaceholder" style="display:none"><table><tbody id="oldestRows"></tbody></table></div></div></section><section class="section" id="team"><div class="layout"><div class="panel span2"><h2>Produção geral de processos</h2><div class="desc">Entradas e julgamentos consolidados, sem indicadores individuais</div><div class="chart" style="height:310px"><canvas id="teamChart"></canvas></div></div><div class="panel span2"><h2>Evolução diária — Capacidade x julgamentos</h2><div class="desc">Tendência diária de capacidade planejada e julgamentos realizados</div><div class="chart"><canvas id="dailyCapacityChart"></canvas></div></div><div class="panel span2"><h2>Resumo da produção</h2><div class="summary" id="teamSummary"></div></div></div></section><section class="section" id="records"><div class="layout"><div class="panel span2"><div class="panelhead"><div><h2>Movimentação por dia</h2><div class="desc">Selecione um mês para consultar os registros diários</div></div><input id="month" type="month" value="2026-10"/></div><div class="tablewrap"><table><thead><tr><th>Data</th><th>Dia da semana</th><th>Cadastros</th><th>Julgamentos</th><th>Saldo</th></tr></thead><tbody id="dailyRows"></tbody></table></div></div><div class="panel span2"><div class="panelhead"><div><h2>Detalhamento de defesas</h2><div class="desc">Dados individuais indisponíveis nesta fonte</div></div><div class="detailsfilter"><input id="search" placeholder="Buscar processo"/><select id="situation"><option value="all">Todas as situações</option><option value="Pendente">Pendentes</option><option value="Julgada">Julgadas</option><option value="Dúvida">Dúvida</option><option value="Diligência">Diligência</option></select></div></div><div class="tablewrap"><table><thead><tr><th>Processo</th><th>Cadastro</th><th>Situação</th><th>Idade</th></tr></thead><tbody id="recordRows"></tbody></table></div></div></div></section><section class="section" id="analytics"><div class="layout">
+<div class="panel span2"><h2>Tendência de produtividade mensal</h2><div class="desc">Comparativo semanal e tendência do processos pendentes • dados agregados</div><div class="chart" style="height:270px"><canvas id="historicalChart"></canvas></div></div>
+<div class="panel"><h2>Tempo entre cadastro e julgamento</h2><div class="desc">Quantidade de defesas julgadas por faixa de dias</div><div class="chart" style="height:260px"><canvas id="durationChart"></canvas></div></div>
+<div class="panel"><h2>Indicadores de prazo</h2><div class="desc">Distribuição de conclusões dentro e fora do prazo</div><div class="summary" id="historicalKpis" style="grid-template-columns:1fr 1fr"></div><div class="note-risk">A análise real deverá utilizar a data de cadastro e a data efetiva do julgamento.</div></div>
+<div class="panel span2"><h2>Variação mensal de julgamentos (%)</h2><div class="desc">Crescimento ou queda em relação ao mês anterior</div><div class="chart"><canvas id="monthlyChart"></canvas></div></div></div></section>
+<section class="section" id="simulation"><div class="layout"><div class="panel span2"><div class="panelhead"><div><h2>Simulador automático de escoamento</h2><div class="desc">Capacidade automática: 12 julgadores, 4 dias remotos (75 cada) e 1 presencial (50 cada)</div></div><span class="tag">Atualização automática</span></div><div class="summary" id="simInputs"></div><div class="sim-target"><label for="simTarget">Prazo desejado para zerar o estoque (dias úteis)</label><input id="simTarget" max="3650" min="1" step="1" type="number" value="11"/><span>Altere apenas o prazo: as demais informações são preenchidas automaticamente.</span></div><div class="chart" style="height:300px"><canvas id="simChart"></canvas></div></div><div class="panel span2"><h2>Resultado da projeção</h2><div class="summary" id="simResults"></div><div class="note-risk" id="simNote"></div></div></div></section><div class="footer">DETRAN.SP • Protótipo de gestão operacional • Dados fictícios para validação visual</div></div></div><script>
+function uiIcon(name){const p={"layout-dashboard": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" rx=\"1\"/><rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" rx=\"1\"/><rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" rx=\"1\"/>", "files": "<path d=\"M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z\"/><path d=\"M14 3v5h5M8 13h8M8 17h8\"/>", "users": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75\"/>", "calendar-days": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M16 3v4M8 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01\"/>", "chart-no-axes-combined": "<path d=\"M3 3v18h18M7 16l4-5 4 3 5-7\"/>", "chart-line": "<path d=\"M3 3v18h18M7 16l4-5 4 3 5-7\"/>", "check-circle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12 3 3 5-6\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "activity": "<path d=\"M3 12h4l3-7 4 14 3-7h4\"/>", "calendar-check": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M16 3v4M8 3v4M3 10h18m5 6 2 2 4-4\"/>", "alert-triangle": "<path d=\"m10.3 3.9-8.2 14a2 2 0 0 0 1.7 3h16.4a2 2 0 0 0 1.7-3l-8.2-14a2 2 0 0 0-3.4 0Z\"/><path d=\"M12 9v4m0 4h.01\"/>", "flag": "<path d=\"M4 22V4m0 1c4-3 8 3 12 0v12c-4 3-8-3-12 0\"/>", "arrow-up-right": "<path d=\"M7 17 17 7M8 7h9v9\"/>", "file-check": "<path d=\"M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z\"/><path d=\"M14 3v5h5m-9 8 2 2 4-4\"/>"};return `<svg class="ui-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p[name]||p.files}</svg>`;}
+// Rotulos inteiros acima de cada barra, inclusive em graficos mistos.
+const barValueLabelsPlugin={
+ id:'barValueLabelsCustom',
+ afterDatasetsDraw(chart){
+  if(!chart.chartArea)return;
+  const ctx=chart.ctx,area=chart.chartArea;
+  const dark=document.body.classList.contains('theme-dark');
+  ctx.save();ctx.font='700 10px Segoe UI, Arial, sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='bottom';
+  chart.data.datasets.forEach((dataset,di)=>{
+   const meta=chart.getDatasetMeta(di);
+   if(!meta||meta.hidden||meta.type!=='bar')return;
+   meta.data.forEach((bar,i)=>{
+    const val=Number(dataset.data[i]);
+    if(!Number.isFinite(val)||val===0||!bar||bar.skip)return;
+    const horizontal=chart.options.indexAxis==='y';
+    ctx.fillStyle=dark?'#f0f5ff':'#263a59';
+    const label=Math.round(val).toLocaleString('pt-BR');
+    if(horizontal){
+     ctx.textAlign='left';ctx.textBaseline='middle';
+     const x=Math.min(area.right-ctx.measureText(label).width-2,bar.x+7);
+     if(x>=area.left)ctx.fillText(label,x,bar.y);
+    }else{
+     ctx.textAlign='center';ctx.textBaseline='bottom';
+     const y=Math.max(area.top+11,bar.y-5);
+     ctx.fillText(label,bar.x,y);
+    }
+   });
+  });ctx.restore();
+ }
+};
+if(window.Chart&&!Chart.registry.plugins.get('barValueLabelsCustom'))Chart.register(barValueLabelsPlugin);
+
+const $=x=>document.getElementById(x),fmt=x=>Math.round(x).toLocaleString('pt-BR'),palette=['#3568f5','#08a777','#f0b74b','#ed8053','#e45663'];const judges=Array.from({length:12},(_,i)=>({name:'Julgador '+String(i+1).padStart(2,'0'),judged:[1050,1120,900,980,1220,1020,880,1050,950,1180,960,860][i],analyzed:[1180,1220,980,1050,1300,1140,960,1100,1020,1260,1080,940][i]}));const ages=[6850,4320,3380,2980,2110,1540,3210],labels=['0–5 dias','6–10 dias','11–15 dias','16–20 dias','21–25 dias','26–30 dias','Mais de 30'];const records=Array.from({length:350},(_,i)=>{let age=(i*17+7)%55,status=i%19===0?'Diligência':i%23===0?'Dúvida':i%5===0?'Julgada':'Pendente';let d=new Date(2026,9,9-age);return{id:'DEF-2026-'+(100001+i),age,status,judge:judges[i%12].name,registered:d.toLocaleDateString('pt-BR')}});let charts={};function factor(){return ({30:.37,90:1,180:1.82,365:3.35})[$('period').value]*($('judge').value==='all'?1:1/12)}function makeChart(id,type,labels,datasets,opts={}){if(!window.Chart||!$(id)||!$(id).closest('.section.active'))return;charts[id]?.destroy();charts[id]=new Chart($(id),{type,data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,usePointStyle:true,font:{size:11}}}},scales:type==='doughnut'?{}:{y:{beginAtZero:true,grid:{color:'#f0f3f8'}},x:{grid:{display:false}}},...opts}});if(document.body.classList.contains("theme-dark"))updateChartContrast();
+ if(['ageChart','riskChart','healthChart'].includes(id)){
+  charts[id].options.onClick=(event,elements)=>{
+   if(!elements.length)return;
+   const ix=elements[0].index;
+   const ranges=id==='ageChart'?[[0,5],[6,10],[11,15],[16,20],[21,25],[26,30],[31,999]]:id==='riskChart'?[[0,24],[25,999]]:[[0,14],[15,24],[25,999]];
+   applyAgeFilter(ranges[ix],labels[ix]);
+  };
+ }
+}// Fonte única dos alertas: todos os gráficos de prazo usam estas quatro faixas.
+const alertRanges=[[1,5],[6,12],[13,20],[21,999]];
+const alertNames=['01 a 05 dias','06 a 12 dias','13 a 20 dias','21 dias ou mais'];
+const alertColors=['#3b82f6','#10b981','#f5b942','#f36b87'];
+const alertBase=[2456,2848,3732,15323];
+function alertValues(){return alertBase.map(n=>Math.round(n*factor()));}
+function alertTotal(){return alertValues().reduce((a,b)=>a+b,0);}
+function alertDistribution(rows){
+ const pending=records.filter(r=>r.status==='Pendente');
+ const values=alertValues();
+ return alertRanges.map(([lo,hi],i)=>{
+  const original=pending.filter(r=>r.age>=lo&&r.age<=hi).length;
+  const subset=rows.filter(r=>r.status==='Pendente'&&r.age>=lo&&r.age<=hi).length;
+  return original?Math.round(values[i]*subset/original):0;
+ });
+}
+function drawMetrics(){const f=factor(),p=alertTotal(),j=Math.round(14320*f);const data=[['Processos pendentes',fmt(p),'Elegíveis para julgamento','files'],['Julgamentos realizados',fmt(j),'Total no período','check-circle'],['Entradas no período',fmt(Math.round(15900*f)),'Cadastros de defesas','arrow-up-right'],['Processos com 21+ dias',fmt(alertValues()[3]),'Monitoramento de prazo','clock'],['Saldo de movimentações',fmt(Math.round((15900-14320)*f)),'Entradas menos julgamentos','chart-line'],['Prazo estimado',simEstimateText(),'Estimativa automática','calendar-check']];$('metrics').innerHTML=data.map((a,i)=>`<div class="metric"><div class="head">${a[0]}<span class="glyph">${uiIcon(a[3])}</span></div><div class="value">${a[1]}</div><div class="hint">${a[2]}</div></div>`).join('')}
+function drawHome(){let f=factor(),w=Array.from({length:10},(_,i)=>'Sem '+(i+1));makeChart('flowChart','bar',w,[{label:'Cadastros',data:[1250,1440,1320,1510,1400,1630,1550,1470,1690,1590].map(x=>x*f),backgroundColor:'#a9c0ff',borderRadius:4,maxBarThickness:19},{label:'Julgamentos',data:[1180,1310,1410,1460,1380,1530,1490,1510,1600,1660].map(x=>x*f),backgroundColor:'#3568f5',borderRadius:4,maxBarThickness:19}]);makeChart('healthChart','doughnut',alertNames,[{data:alertValues(),backgroundColor:alertColors,borderWidth:0}],{cutout:'68%'});const vals=alertValues(),sum=alertTotal();$('deadlines').innerHTML=alertNames.map((l,i)=>`<div class="mini"><div class="label">${l}</div><strong style="color:${alertColors[i]}">${fmt(vals[i])}</strong><div class="bar"><i style="width:${sum?vals[i]/sum*100:0}%;background:${alertColors[i]}"></i></div><small>${sum?(vals[i]/sum*100).toFixed(1).replace('.',','):0}% dos pendentes</small></div>`).join('');makeChart('projectionChart','line',Array.from({length:11},(_,i)=>i?'Sem '+i:'Hoje'),[{label:'Estoque projetado',data:Array.from({length:11},(_,i)=>Math.max(0,24850*f-i*1900*f)),borderColor:'#3568f5',backgroundColor:'#3568f51a',fill:true,tension:.3,pointRadius:2}],{plugins:{legend:{display:false}}});makeChart('teamMiniChart','bar',w,[{label:'Julgamentos',data:[1180,1310,1410,1460,1380,1530,1490,1510,1600,1660].map(x=>Math.round(x*f)),backgroundColor:'#3568f5',borderRadius:5,maxBarThickness:23}],{plugins:{legend:{display:false}}})}
+function drawStock(){const vals=alertValues();makeChart('ageChart','bar',alertNames,[{label:'Processos pendentes',data:vals,backgroundColor:alertColors,borderRadius:5,maxBarThickness:32}],{indexAxis:'y',plugins:{legend:{display:false}}});makeChart('riskChart','doughnut',alertNames,[{data:vals,backgroundColor:alertColors,borderWidth:0}],{cutout:'68%'});$('oldestRows').innerHTML=records.filter(x=>x.status==='Pendente').sort((a,b)=>b.age-a.age).slice(0,20).map(r=>`<tr><td>${r.id}</td><td>${r.registered}</td><td>${r.age} dias</td><td><span class="tag ${r.age>=21?'bad':'warn'}">${r.age>=21?'Urgente':'Atenção'}</span></td></tr>`).join('')}
+function drawTeam(){const f=factor(),weeks=Array.from({length:10},(_,i)=>'Sem '+(i+1)),entries=[1250,1440,1320,1510,1400,1630,1550,1470,1690,1590].map(v=>Math.round(v*f)),done=[1180,1310,1410,1460,1380,1530,1490,1510,1600,1660].map(v=>Math.round(v*f));makeChart('teamChart','bar',weeks,[{label:'Entradas',data:entries,backgroundColor:'#a9c0ff',borderRadius:4},{label:'Julgamentos',data:done,backgroundColor:'#3568f5',borderRadius:4}]);const target=$('teamSummary');if(target)target.innerHTML=[['Entradas',entries.reduce((a,b)=>a+b,0)],['Julgamentos',done.reduce((a,b)=>a+b,0)],['Saldo',entries.reduce((a,b)=>a+b,0)-done.reduce((a,b)=>a+b,0)]].map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${fmt(v)}</strong></div>`).join('')}
+function drawDaily(){let [y,m]=$('month').value.split('-').map(Number),days=new Date(y,m,0).getDate(),f=factor(),rows=[];for(let d=1;d<=days;d++){let dt=new Date(y,m-1,d),weekend=[0,6].includes(dt.getDay()),a=weekend?0:Math.round((85+(d*37+m*13)%110)*f),b=weekend?0:Math.round((75+(d*29+m*7)%115)*f);rows.push(`<tr><td>${dt.toLocaleDateString('pt-BR')}</td><td>${dt.toLocaleDateString('pt-BR',{weekday:'long'})}</td><td>${fmt(a)}</td><td>${fmt(b)}</td><td style="color:${a-b>0?'#df6972':'#078e69'}">${a-b>0?'+':''}${fmt(a-b)}</td></tr>`)}$('dailyRows').innerHTML=rows.join('')}
+function drawRecords(){let q=$('search').value.toLowerCase(),s=$('situation').value,j=$('judge').value;let list=records.filter(r=>(!activeAgeFilter||(r.age>=activeAgeFilter[0]&&r.age<=activeAgeFilter[1]))&&(s==='all'||r.status===s)&&(j==='all'||r.judge===j)&&r.id.toLowerCase().includes(q));$('recordRows').innerHTML=list.map(r=>`<tr><td>${r.id}</td><td>${r.registered}</td><td><span class="tag ${r.status==='Pendente'?'warn':r.status==='Julgada'?'':'bad'}">${r.status}</span></td><td>${r.age} dias</td></tr>`).join('')||'<tr><td colspan="4">Nenhum registro encontrado.</td></tr>';return list}
+function drawAll(){drawMetrics();drawHome();drawStock();drawTeam();drawDaily();drawRecords();drawAnalytics();drawSimulation();drawRestored();updateChartContrast();requestAnimationFrame(()=>{Object.values(charts).forEach(c=>{if(c.canvas.closest('.section.active'))c.resize()})})}
+function drawAnalytics(){const f=factor(),w=Array.from({length:12},(_,i)=>'Sem '+(i+1));const incoming=[1250,1440,1320,1510,1400,1630,1550,1470,1690,1590,1480,1560],done=[1180,1310,1410,1460,1380,1530,1490,1510,1600,1660,1580,1630];makeChart('historicalChart','bar',w,[{label:'Entradas',data:incoming.map(x=>x*f),backgroundColor:'#a8bffc',maxBarThickness:20},{label:'Julgamentos',data:done.map(x=>x*f),backgroundColor:'#2bb58b',maxBarThickness:20},{label:'Processos pendentes',type:'line',data:w.map((_,i)=>(32000-i*650)*f),borderColor:'#ef8b4d',backgroundColor:'#ef8b4d',yAxisID:'y1',pointRadius:2,tension:.3}],{scales:{y:{beginAtZero:true},y1:{position:'right',grid:{drawOnChartArea:false}}}});makeChart('durationChart','bar',['01–05 dias','06–12 dias','13–20 dias','21+ dias'],[{label:'Julgadas',data:[4320,4612,3428,1960].map(x=>x*f),backgroundColor:['#3568f5','#08a777','#f0b74b','#e45663'],borderRadius:5}],{plugins:{legend:{display:false}}});const vals=[['Julgadas até 30 dias','89,4%'],['Fora do prazo','10,6%'],['Casos com 25+ dias',fmt(3210*f)],['Tempo médio','~ 12 dias']];$('historicalKpis').innerHTML=vals.map(([t,v])=>'<div class="mini"><div class="label">'+t+'</div><strong>'+v+'</strong></div>').join('')}
+function simSource(){
+ const f=factor(),pending=Math.round(24850*f);
+ const incoming=[1250,1440,1320,1510,1400,1630,1550,1470,1690,1590];
+ // Quatro semanas = 20 dias úteis, não 28 dias corridos.
+ const entry=Math.round(incoming.slice(-4).reduce((a,b)=>a+b,0)*f/20);
+ const team=12,remoteDaily=team*75,officeDaily=team*50;
+ const weekly=remoteDaily*4+officeDaily,capacity=Math.round(weekly/5);
+ return {pending,entry,judged:capacity,net:capacity-entry,team,remoteDaily,officeDaily,weekly};
+}
+function simEstimateText(){const a=simSource();return a.pending===0?'0 dias úteis':a.net>0?fmt(Math.ceil(a.pending/a.net))+' dias úteis':'Sem previsão';}
+function drawSimulation(){
+ const a=simSource(),target=Math.max(1,Math.round(Number($('simTarget').value)||30));
+ const need=Math.ceil(a.pending/target)+a.entry;
+ const labels=Array.from({length:13},(_,i)=>'Dia útil '+Math.round(i*target/12));
+ const projected=labels.map((_,i)=>Math.max(0,Math.round(a.pending-a.net*(i*target/12))));
+ const goal=labels.map((_,i)=>Math.max(0,Math.round(a.pending-(need-a.entry)*(i*target/12))));
+ $('simInputs').innerHTML=[['Estoque inicial',fmt(a.pending)],['Entradas médias / dia útil',fmt(a.entry)],['Capacidade média / dia útil',fmt(a.judged)],['Capacidade semanal',fmt(a.weekly)]].map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${v}</strong></div>`).join('');
+ makeChart('simChart','line',labels,[{label:'Capacidade da equipe',data:projected,borderColor:'#3568f5',tension:.25,pointRadius:2},{label:'Meta de escoamento',data:goal,borderColor:'#0cad7d',borderDash:[5,4],tension:.2,pointRadius:2}]);
+ $('simResults').innerHTML=[['Prazo desejado',fmt(target)+' dias úteis'],['Julgamentos necessários / dia útil',fmt(need)],['Diferença para capacidade / dia',fmt(need-a.judged)],['Prazo estimado na capacidade atual',simEstimateText()]].map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${v}</strong></div>`).join('');
+ $('simNote').textContent=`Capacidade fixa de referência: ${fmt(a.team)} julgadores × ${fmt(75)} julgamentos em cada um dos 4 dias remotos (${fmt(a.remoteDaily)}/dia), e ${fmt(50)} no dia presencial (${fmt(a.officeDaily)}/dia). Total: ${fmt(a.weekly)} por semana e ${fmt(a.judged)} por dia útil, em média. Entradas estimadas pelos dados agregados. ${a.net<=0?'ATENÇÃO: as entradas diárias são iguais ou superiores à capacidade; não há escoamento sem aumento de produção ou redução das entradas.':'Saldo disponível para reduzir o estoque: '+fmt(a.net)+' processos por dia útil.'}`;
+}
+
+judges.forEach(j=>$('judge').add(new Option(j.name,j.name)));document.querySelectorAll('.navbutton').forEach(b=>b.onclick=()=>{document.querySelectorAll('.navbutton').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.view));$('pageTitle').textContent=b.textContent.trim();requestAnimationFrame(()=>requestAnimationFrame(drawAll))});['period','judge'].forEach(x=>$(x).addEventListener('change',drawAll));$('simTarget').addEventListener('input',()=>{drawSimulation();drawMetrics();updateChartContrast()});$('month').addEventListener('change',drawDaily);['search','situation'].forEach(x=>$(x).addEventListener(x==='search'?'input':'change',drawRecords));$('reset').onclick=()=>{$('period').value='all';$('judge').value='all';$('search').value='';$('situation').value='all';$('month').value='2026-10';drawAll()};$('export').onclick=()=>{let list=drawRecords(),csv='Processo;Cadastro;Julgador;Situacao;Idade\n'+list.map(r=>[r.id,r.registered,r.judge,r.status,r.age].join(';')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='defesas_demonstracao.csv';a.click();URL.revokeObjectURL(a.href)};
+
+// Análises recuperadas do painel de calendário original, integradas à Central.
+let calYear=2026,calMonth=9,calSelected=null;
+function calDayData(y,m,d){let dt=new Date(y,m,d),weekend=[0,6].includes(dt.getDay()),f=factor(),cad=weekend?0:Math.round((85+(d*37+(m+1)*13)%110)*f),jul=weekend?0:Math.round((75+(d*29+(m+1)*7)%115)*f);return {cad,jul,dt};}
+function drawCalendar(){const first=new Date(calYear,calMonth,1),total=new Date(calYear,calMonth+1,0).getDate(),offset=(first.getDay()+6)%7;document.getElementById('calTitle').textContent=first.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});let html=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(w=>`<div class="cal-week">${w}</div>`).join('');for(let i=0;i<offset;i++)html+='<div class="cal-blank"></div>';for(let d=1;d<=total;d++){const {cad}=calDayData(calYear,calMonth,d),level=cad===0?'':cad<110?'low':cad<170?'mid':'high';html+=`<button class="cal-day ${level} ${calSelected===d?'selected':''}" data-day="${d}" type="button"><small>${d}</small><strong>${cad?fmt(cad):'—'}</strong></button>`;}document.getElementById('calendarGrid').innerHTML=html;document.querySelectorAll('#calendarGrid [data-day]').forEach(b=>b.onclick=()=>{calSelected=Number(b.dataset.day);const x=calDayData(calYear,calMonth,calSelected);document.getElementById('calDayDetail').innerHTML=`<strong>${x.dt.toLocaleDateString('pt-BR')}:</strong> ${fmt(x.cad)} cadastros · ${fmt(x.jul)} julgamentos · saldo ${x.cad-x.jul>0?'+':''}${fmt(x.cad-x.jul)} <span style="color:#7b8ca4">(dados agregados)</span>`;drawCalendar();});}
+function drawOperationalAlerts(){const total=alertTotal(),values=alertValues();const groups=[{titulo:'01 a 05 dias',cor:'blue',icone:'clock',range:[1,5],sub:'Prazo inicial',acao:'Acompanhar'},{titulo:'06 a 12 dias',cor:'green',icone:'check-circle',range:[6,12],sub:'Em acompanhamento',acao:'Monitorar'},{titulo:'13 a 20 dias',cor:'yellow',icone:'alert-triangle',range:[13,20],sub:'Atenção ao prazo',acao:'Priorizar'},{titulo:'21 a 30 dias',cor:'red',icone:'flag',range:[21,999],sub:'Inclui acima de 30 dias',acao:'Urgente'}];$('operationalAlerts').innerHTML=groups.map(a=>{const n=values[groups.indexOf(a)];const pct=total?100*n/total:0;return `<article class="alert-box severity-${a.cor}"><div class="alert-heading"><span class="alert-symbol">${uiIcon(a.icone)}</span><span class="alert-severity">${a.acao}</span></div><div class="alert-label">${a.titulo}</div><div class="alert-amount">${fmt(n)} <span>processos</span></div><div class="alert-track"><i style="width:${Math.min(100,pct)}%"></i></div><div class="alert-footer"><span>${a.sub}</span><strong>${pct.toFixed(1).replace('.',',')}% dos processos</strong></div></article>`}).join('')}
+function drawDailyCapacity(){const f=factor(),days=Array.from({length:12},(_,i)=>'Dia '+(i+1)),cap=days.map((_,i)=>(i%5===4?600:900)*f),real=days.map((_,i)=>Math.round(((i%5===4?510:710)+(i*23)%110)*f));makeChart('dailyCapacityChart','line',days,[{label:'Capacidade planejada',data:cap,borderColor:'#8ca9e9',backgroundColor:'rgba(140,169,233,.12)',borderWidth:3,pointRadius:4,pointHoverRadius:6,tension:.3,fill:false},{label:'Julgamentos realizados',data:real,borderColor:'#3568f5',backgroundColor:'rgba(53,104,245,.12)',borderWidth:3,pointRadius:4,pointHoverRadius:6,tension:.3,fill:false}]);}
+function drawMonthlyComparison(){const f=factor(),months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],entr=[1150,1210,1370,1290,1450,1500,1480,1530,1590,1670,1550,1620],jud=[1090,1190,1260,1350,1390,1460,1520,1500,1570,1620,1610,1690];makeChart('monthlyChart','bar',months,[{label:'Entradas',data:entr.map(x=>x*f),backgroundColor:'#a8bffc',borderRadius:4},{label:'Julgamentos',data:jud.map(x=>x*f),backgroundColor:'#2bb58b',borderRadius:4},{label:'Saldo',type:'line',data:entr.map((x,i)=>(x-jud[i])*f),borderColor:'#ed8a4e',backgroundColor:'#ed8a4e',yAxisID:'y1',tension:.25}],{scales:{y:{beginAtZero:true},y1:{position:'right',grid:{drawOnChartArea:false}}}});}
+function drawRestored(){drawCalendar();drawOperationalAlerts();drawDailyCapacity();drawMonthlyComparison();}
+document.getElementById('calPrev').addEventListener('click',()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--;}calSelected=null;drawCalendar();});
+document.getElementById('calNext').addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++;}calSelected=null;drawCalendar();});
+let activeAgeFilter=null,activeAgeLabel='';
+// Inicialização adiada até o carregamento dos dados CPH BOT.
+
+
+// Filtro cruzado no estilo Power BI: selecoes compartilhadas, sem navegar nem abrir tabela.
+const cross={age:null,judge:null,status:null,week:null,month:null,day:null};
+const crossAgeGroups={ageChart:alertRanges,healthChart:alertRanges,riskChart:alertRanges};
+const crossLabels={age:'Prazo',judge:'Julgador',status:'Situação',week:'Semana',month:'Mês',day:'Dia'};
+const sourceMakeChart=makeChart;
+function sameValue(a,b){return JSON.stringify(a)===JSON.stringify(b)}
+function toggleCross(k,v){const remove=sameValue(cross[k],v);cross[k]=remove?null:(Array.isArray(v)?v.slice():v);refreshCross()}
+function recordWeek(r){return (Number(r.id.slice(-6))-100001)%10}
+function crossRows(exclude){
+ const selected=$('judge').value,stat=$('situation').value,query=$('search').value.trim().toLowerCase();
+ const windowDays=Number($('period').value);
+ return records.filter(r=>{
+  const w=Math.floor(r.age/7);
+  return r.age<windowDays && (selected==='all'||r.judge===selected) && (stat==='all'||r.status===stat) && (!query||r.id.toLowerCase().includes(query)||r.judge.toLowerCase().includes(query)) &&
+   (exclude==='age'||!cross.age||(r.age>=cross.age[0]&&r.age<=cross.age[1])) &&
+   (exclude==='judge'||!cross.judge||r.judge===cross.judge) &&
+   (exclude==='status'||!cross.status||r.status===cross.status) &&
+   (exclude==='week'||cross.week===null||recordWeek(r)===cross.week) &&
+   (exclude==='month'||cross.month===null||((Number(r.id.slice(-6))-100001)%12)===cross.month) &&
+   (exclude==='day'||cross.day===null||((Number(r.id.slice(-6))-100001)%13)===cross.day);
+ });
+}
+function countRows(rows,fn){return rows.filter(fn).length}
+function setChartData(id,values){const c=charts[id];if(!c)return;values.forEach((arr,i)=>{if(c.data.datasets[i])c.data.datasets[i].data=arr});c.update('none')}
+// Mantem a categoria selecionada visivel no grafico de origem (selecao estilo Power BI).
+const originalCrossCharts={};
+const interactiveChartIds=['ageChart','durationChart','healthChart','riskChart','flowChart','teamChart','teamMiniChart','historicalChart','monthlyChart','dailyCapacityChart','projectionChart','simChart'];
+function preserveSelectedSourceCharts(){ /* Seleção exclusiva aplicada em todos os gráficos por repaintCross. */ }
+function fadeChartColor(color){
+ if(typeof color!=='string')return color;
+ if(/^#[0-9a-f]{6}$/i.test(color))return color+'35';
+ if(/^#[0-9a-f]{3}$/i.test(color))return '#'+[1,2,3].map(i=>color[i]+color[i]).join('')+'35';
+ return color;
+}
+function repaintCross(){
+ const noCross=Object.values(cross).every(v=>v===null);
+ if(noCross){
+  nativeDrawAll();
+  const indicator=$('activeFilter');
+  indicator.classList.remove('visible');indicator.innerHTML='';
+  document.querySelectorAll('#operationalAlerts .alert-box,#metrics .metric').forEach(el=>el.classList.remove('is-selected'));
+  return;
+ }
+ const all=crossRows();
+ const sourceValues=alertValues();
+ const activeRange=cross.age;
+ // Uma única faixa selecionada: todas as outras categorias ficam zeradas.
+ // Mantém a escala dos totais demonstrativos dos cards, sem substituir por amostras de 350 registros.
+ const selectedValues=sourceValues.map((v,i)=>{if(!activeRange)return v;const [lo,hi]=alertRanges[i];const overlap=Math.max(0,Math.min(hi,activeRange[1])-Math.max(lo,activeRange[0])+1);const width=hi===999?35:hi-lo+1;return Math.round(v*Math.min(1,overlap/width));});
+ const total=selectedValues.reduce((a,b)=>a+b,0);
+ ['ageChart','healthChart','riskChart'].forEach(id=>{
+  const c=charts[id];if(!c)return;
+  if(c.data.datasets[0]){
+   c.data.datasets[0].data=selectedValues.slice();
+   c.data.datasets[0].backgroundColor=alertColors.slice();
+   c.data.datasets[0].borderWidth=0;
+  }
+  c.update('none');
+ });
+ const cards=$('operationalAlerts').querySelectorAll('.alert-box');
+ cards.forEach((box,i)=>{
+  const v=selectedValues[i];
+  const amount=box.querySelector('.alert-amount');if(amount)amount.innerHTML=fmt(v)+' <span>processos</span>';
+  const pct=total?100*v/total:0;
+  const bar=box.querySelector('.alert-track i');if(bar)bar.style.width=pct+'%';
+  const foot=box.querySelector('.alert-footer strong');if(foot)foot.textContent=pct.toFixed(1).replace('.',',')+'% dos processos';
+  box.classList.toggle('is-selected',sameValue(activeRange,alertRanges[i]));
+ });
+ $('deadlines').querySelectorAll('.mini').forEach((box,i)=>{
+  const v=selectedValues[i],pct=total?100*v/total:0;
+  const amount=box.querySelector('strong');if(amount)amount.textContent=fmt(v);
+  const bar=box.querySelector('.bar i');if(bar)bar.style.width=pct+'%';
+  const foot=box.querySelector('small');if(foot)foot.textContent=pct.toFixed(1).replace('.',',')+'% dos pendentes';
+ });
+ const metrics=$('metrics').querySelectorAll('.metric');
+ if(metrics[0]){const v=metrics[0].querySelector('.value');if(v)v.textContent=fmt(total)}
+ if(metrics[3]){const v=metrics[3].querySelector('.value');if(v)v.textContent=fmt(selectedValues[3])}
+ metrics.forEach((box,i)=>box.classList.toggle('is-selected',(i===0&&cross.status==='Pendente')||(i===1&&cross.status==='Julgada')));
+ // Atualização de TODOS os gráficos, inclusive os da aba Análise histórica.
+ // Dados agregados demonstrativos: a seleção de período mantém a categoria
+ // escolhida e aplica aos demais visuais a mesma participação proporcional.
+ const chosenWeek=cross.week,chosenMonth=cross.month,chosenDay=cross.day;
+ const fraction=(id,index)=>{
+  const base=originalCrossCharts[id];if(!base||!base.data.length)return 1;
+  const arr=base.data[0].map(x=>Math.max(0,Number(x)||0));
+  const sum=arr.reduce((a,b)=>a+b,0);
+  return sum?Math.max(0,Math.min(1,(arr[index]||0)/sum)):0;
+ };
+ const periodFactor=chosenWeek!==null?fraction('historicalChart',chosenWeek):chosenMonth!==null?fraction('monthlyChart',chosenMonth):chosenDay!==null?fraction('dailyCapacityChart',chosenDay):1;
+ const ageFactor=activeRange?Math.max(0,Math.min(1,total/(sourceValues.reduce((a,b)=>a+b,0)||1))):1;
+ const filteredFactor=periodFactor*ageFactor;
+ const timeCharts=['historicalChart','monthlyChart','dailyCapacityChart','flowChart','teamChart','teamMiniChart','projectionChart','simChart'];
+ timeCharts.forEach(id=>{
+  const c=charts[id],base=originalCrossCharts[id];if(!c||!base)return;
+  c.data.datasets.forEach((d,j)=>{
+   if(!base.data[j])return;
+   d.data=base.data[j].map((raw,i)=>{
+    const val=Math.round((Number(raw)||0)*ageFactor);
+    if(id==='historicalChart'&&chosenWeek!==null)return i===chosenWeek?val:0;
+    if(id==='monthlyChart'&&chosenMonth!==null)return i===chosenMonth?val:0;
+    if(id==='dailyCapacityChart'&&chosenDay!==null)return i===chosenDay?val:0;
+    if(['flowChart','teamChart','teamMiniChart'].includes(id)&&chosenWeek!==null)return i===chosenWeek?val:0;
+    return Math.round(val*periodFactor);
+   });
+   if(base.colors[j]!==undefined)d.backgroundColor=Array.isArray(base.colors[j])?base.colors[j].slice():base.colors[j];
+  });c.update('none');
+ });
+ const duration=charts.durationChart, durationBase=originalCrossCharts.durationChart;
+ if(duration&&durationBase){
+  const bins=[[1,5],[6,12],[13,20],[21,999]];
+  duration.data.datasets.forEach((d,j)=>{
+   if(!durationBase.data[j])return;
+   d.data=durationBase.data[j].map((v,i)=>{
+    let proportion=1;
+    if(activeRange){const [lo,hi]=bins[i];const overlap=Math.max(0,Math.min(hi,activeRange[1])-Math.max(lo,activeRange[0])+1);proportion=overlap/(hi===999?35:hi-lo+1)}
+    return Math.round(Number(v)*proportion*periodFactor);
+   });
+  });duration.update('none');
+ }
+ const historicalKpis=$('historicalKpis');
+ if(historicalKpis){
+  const vals=duration&&duration.data.datasets[0]?duration.data.datasets[0].data.map(Number):[];
+  const judged=vals.reduce((a,b)=>a+b,0),inTime=vals.slice(0,6).reduce((a,b)=>a+b,0);
+  const outside=judged-inTime,over25=vals.slice(5).reduce((a,b)=>a+b,0);
+  const mean=judged?Math.round(vals.reduce((a,v,i)=>a+v*[3,8,13,18,23,28,35][i],0)/judged):0;
+  const data=[['Julgadas até 30 dias',fmt(inTime)],['Fora do prazo',fmt(outside)],['Casos com 25+ dias',fmt(over25)],['Tempo médio',judged?fmt(mean)+' dias':'—']];
+  historicalKpis.innerHTML=data.map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${v}</strong></div>`).join('');
+ }
+ const teamSummary=$('teamSummary'),teamChart=charts.teamChart;
+ if(teamSummary&&teamChart){const a=teamChart.data.datasets[0]?.data||[],b=teamChart.data.datasets[1]?.data||[];
+  const entries=a.reduce((x,y)=>x+Number(y||0),0),done=b.reduce((x,y)=>x+Number(y||0),0);
+  teamSummary.innerHTML=[['Entradas',entries],['Julgamentos',done],['Saldo',entries-done]].map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${fmt(v)}</strong></div>`).join('');
+ }
+
+ const oldest=$('oldestRows');if(oldest)oldest.innerHTML=all.filter(r=>r.status==='Pendente').sort((a,b)=>b.age-a.age).slice(0,20).map(r=>`<tr><td>${r.id}</td><td>${r.registered}</td><td>${r.age} dias</td><td><span class="tag ${r.age>=21?'bad':'warn'}">${r.age>=21?'Urgente':'Atenção'}</span></td></tr>`).join('')||'<tr><td colspan="4">Nenhum processo nesta seleção</td></tr>';
+ const rows=$('recordRows');if(rows)rows.innerHTML=all.map(r=>`<tr><td>${r.id}</td><td>${r.registered}</td><td><span class="tag">${r.status}</span></td><td>${r.age} dias</td></tr>`).join('')||'<tr><td colspan="4">Nenhum processo nesta seleção</td></tr>';
+ const tags=Object.entries(cross).filter(([k,v])=>v!==null).map(([k,v])=>`${crossLabels[k]}: ${k==='age'?(v[1]===999?'21+':v[0]+' a '+v[1])+' dias':k==='week'?'Semana '+(v+1):v}`);
+ const indicator=$('activeFilter');indicator.classList.toggle('visible',tags.length>0);
+ indicator.innerHTML=tags.length?'<strong>Filtro ativo:</strong> '+tags.map(t=>`<span class="cross-chip">${t}</span>`).join(' ')+' <button type="button" id="clearCross">Limpar seleção</button>':'';
+ if(tags.length)$('clearCross').onclick=clearCross;
+}
+function clearCross(){Object.keys(cross).forEach(k=>cross[k]=null);refreshCross()}
+function refreshCross(){repaintCross()}
+function chartCrossClick(id,chart,points,event){
+ // A categoria deve ser identificada mesmo quando o clique ocorre na area
+ // da barra apos o redesenho, sem exigir que o elemento esteja preenchido.
+ let i=points&&points.length?points[0].index:-1;
+ if(i<0&&event&&chart.getElementsAtEventForMode){
+  const lineChart=chart.data.datasets.some((d,j)=>chart.getDatasetMeta(j).type==='line');
+  const nearest=chart.getElementsAtEventForMode(event,lineChart?'nearest':'index',{intersect:false,axis:'x'},false);
+  if(nearest.length)i=nearest[0].index;
+ }
+ if(i<0||i>=chart.data.labels.length)return;
+
+ if(crossAgeGroups[id]){toggleCross('age',crossAgeGroups[id][i]);return}
+ if(['flowChart','teamChart','teamMiniChart','historicalChart'].includes(id)){toggleCross('week',i);return}
+ if(id==='monthlyChart'){toggleCross('month',i);return}
+ if(id==='dailyCapacityChart'){toggleCross('day',i);return}
+ if(id==='durationChart'){const groups=[[1,5],[6,12],[13,20],[21,999]];toggleCross('age',groups[i]);return}
+ if(['projectionChart','simChart'].includes(id)){toggleCross('day',i);return}
+}
+makeChart=function(id,type,labels,datasets,opts={}){sourceMakeChart(id,type,labels,datasets,opts);const c=charts[id];if(!c)return;
+ if(interactiveChartIds.includes(id))originalCrossCharts[id]={data:c.data.datasets.map(d=>Array.from(d.data)),colors:c.data.datasets.map(d=>Array.isArray(d.backgroundColor)?d.backgroundColor.slice():d.backgroundColor)};
+
+ c.options.onClick=(event,points)=>chartCrossClick(id,c,points,event);c.canvas.style.cursor=interactiveChartIds.includes(id)?'pointer':'default';c.update('none');
+};
+$('operationalAlerts').addEventListener('click',e=>{const card=e.target.closest('.alert-box');if(!card)return;const i=[...$('operationalAlerts').children].indexOf(card);const ranges=alertRanges;if(ranges[i])toggleCross('age',ranges[i])});
+$('operationalAlerts').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('.alert-box')){e.preventDefault();e.target.closest('.alert-box').click()}});
+$('metrics').addEventListener('click',e=>{const card=e.target.closest('.metric');if(!card)return;const i=[...$('metrics').children].indexOf(card);if(i===0)toggleCross('status','Pendente');else if(i===1)toggleCross('status','Julgada');else if(i===3)toggleCross('age',[21,999])});
+const nativeDrawAll=drawAll;drawAll=function(){nativeDrawAll();repaintCross();document.querySelectorAll('#operationalAlerts .alert-box,#metrics .metric').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button')})};
+const nativeReset=$('reset').onclick;$('reset').onclick=()=>{Object.keys(cross).forEach(k=>cross[k]=null);nativeReset();repaintCross()};
+['period','judge','situation'].forEach(id=>$(id).addEventListener('change',()=>requestAnimationFrame(repaintCross)));
+$('search').addEventListener('input',()=>requestAnimationFrame(repaintCross));
+// Reaplicar selecoes aos graficos recriados na troca de aba, sem disparar navegacao.
+document.querySelectorAll('.navbutton').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(()=>{repaintCross()})));
+// Abrir sempre sem filtros cruzados preselecionados.
+Object.keys(cross).forEach(k=>cross[k]=null);
+// Recriação adiada até os dados CPH BOT estarem disponíveis.
+function updateChartContrast(){
+ const dark=document.body.classList.contains('theme-dark');
+ const text=dark?'#cbd8eb':'#64748b',grid=dark?'#334258':'#edf1f6';
+ if(!window.Chart)return;
+ Chart.defaults.color=text;
+ Chart.defaults.borderColor=grid;
+ Object.values(charts).forEach(chart=>{
+   if(!chart)return;
+   chart.options.plugins??={};
+   chart.options.plugins.legend??={};
+   chart.options.plugins.legend.labels??={};
+   chart.options.plugins.legend.labels.color=text;
+   for(const scale of Object.values(chart.options.scales||{})){
+     if(!scale||typeof scale!=='object')continue;
+     scale.ticks??={};scale.ticks.color=text;
+     scale.grid??={};scale.grid.color=grid;
+     scale.border??={};scale.border.color=grid;
+     if(scale.title)scale.title.color=text;
+   }
+   chart.update('none');
+ });
+}
+function setTheme(dark){
+ document.body.classList.toggle('theme-dark',dark);
+ 
+ $('themeToggle').setAttribute('aria-pressed',String(dark));
+ $('themeToggle').setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');
+ $('themeToggle').querySelector('svg').innerHTML=dark?'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>':'<path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/>';
+ try{localStorage.setItem('detran-defesas-theme',dark?'dark':'light')}catch(e){}
+ updateChartContrast();
+}
+$('themeToggle').addEventListener('click',()=>setTheme(!document.body.classList.contains('theme-dark')));
+let savedTheme='light';try{savedTheme=localStorage.getItem('detran-defesas-theme')||'light'}catch(e){}
+setTheme(savedTheme==='dark');
+
+
+
+/* Integração CPH BOT: dados agregados, sem fabricar registros individuais. */
+const CPH={"Julgamentos":{"2026-01-19":53,"2026-01-20":58,"2026-01-26":33,"2026-01-29":32,"2026-01-22":69,"2026-01-28":70,"2026-01-27":70,"2026-01-21":74,"2026-01-14":88,"2026-01-13":92,"2026-01-15":108,"2026-01-05":136,"2026-01-12":165,"2026-01-08":178,"2026-01-02":183,"2026-01-09":139,"2026-01-30":109,"2026-01-23":105,"2026-01-16":96,"2026-01-06":224,"2026-01-07":341,"2026-02-20":205,"2026-02-18":200,"2026-02-13":193,"2026-02-27":194,"2026-02-25":133,"2026-02-10":105,"2026-02-11":100,"2026-02-24":100,"2026-02-09":93,"2026-02-06":83,"2026-02-02":73,"2026-02-03":51,"2026-02-04":52,"2026-02-07":5,"2026-02-14":11,"2026-02-19":93,"2026-02-12":100,"2026-02-05":118,"2026-02-26":123,"2026-02-23":429,"2026-03-26":222,"2026-03-12":189,"2026-03-04":187,"2026-03-11":151,"2026-03-05":150,"2026-03-19":141,"2026-03-25":137,"2026-03-18":113,"2026-03-17":131,"2026-03-03":131,"2026-03-24":137,"2026-03-10":137,"2026-03-31":149,"2026-03-20":238,"2026-03-06":224,"2026-03-13":214,"2026-03-27":289,"2026-03-30":388,"2026-03-02":339,"2026-03-09":402,"2026-03-23":410,"2026-03-16":430,"2026-10-02":500,"2026-10-05":459,"2026-10-01":428,"2026-10-14":294,"2026-10-03":25,"2026-10-10":25,"2026-10-06":634,"2026-10-09":660,"2026-10-13":669,"2026-10-07":766,"2026-10-08":801,"2026-08-28":499,"2026-08-06":441,"2026-08-14":392,"2026-08-07":378,"2026-08-21":359,"2026-08-20":299,"2026-08-13":277,"2026-08-12":274,"2026-08-05":249,"2026-08-19":216,"2026-08-18":222,"2026-08-04":240,"2026-08-11":273,"2026-08-25":293,"2026-08-17":325,"2026-08-10":322,"2026-08-24":263,"2026-08-31":462,"2026-08-03":519,"2026-06-01":412,"2026-06-08":383,"2026-06-15":309,"2026-06-22":277,"2026-06-29":86,"2026-06-27":21,"2026-06-18":257,"2026-06-11":293,"2026-06-03":306,"2026-06-24":328,"2026-06-10":359,"2026-06-26":381,"2026-06-19":399,"2026-06-12":408,"2026-06-25":424,"2026-06-17":433,"2026-06-30":340,"2026-06-02":333,"2026-06-09":322,"2026-06-16":277,"2026-06-23":225,"2026-09-22":257,"2026-09-08":277,"2026-09-29":332,"2026-09-15":348,"2026-09-01":502,"2026-09-17":376,"2026-09-10":355,"2026-09-03":298,"2026-09-04":294,"2026-09-05":20,"2026-09-19":28,"2026-09-26":25,"2026-09-14":381,"2026-09-18":429,"2026-09-21":452,"2026-09-24":465,"2026-09-11":492,"2026-09-28":531,"2026-09-23":442,"2026-09-16":419,"2026-09-30":420,"2026-09-02":315,"2026-09-09":275,"2026-09-25":569,"2026-04-28":859,"2026-04-22":851,"2026-04-27":716,"2026-04-13":638,"2026-04-24":529,"2026-04-17":459,"2026-04-23":410,"2026-04-16":400,"2026-04-14":347,"2026-04-07":338,"2026-04-10":332,"2026-04-15":321,"2026-04-01":263,"2026-04-09":241,"2026-04-02":233,"2026-04-08":232,"2026-04-06":145,"2026-04-30":997,"2026-04-29":1157,"2026-07-27":597,"2026-07-23":587,"2026-07-30":532,"2026-07-02":456,"2026-07-16":372,"2026-07-13":360,"2026-07-20":244,"2026-07-06":239,"2026-07-04":33,"2026-07-31":426,"2026-07-17":426,"2026-07-24":490,"2026-07-03":528,"2026-07-07":485,"2026-07-14":470,"2026-07-21":429,"2026-07-28":523,"2026-07-29":546,"2026-07-01":431,"2026-07-15":424,"2026-07-08":372,"2026-07-22":650,"2026-05-18":582,"2026-05-11":566,"2026-05-29":521,"2026-05-12":482,"2026-05-01":41,"2026-05-16":14,"2026-05-05":622,"2026-05-08":633,"2026-05-22":667,"2026-05-04":707,"2026-05-26":751,"2026-05-15":802,"2026-05-25":813,"2026-05-14":834,"2026-05-21":811,"2026-05-07":728,"2026-05-28":482,"2026-05-19":876,"2026-05-13":813,"2026-05-27":800,"2026-05-20":765,"2026-05-06":677},"CARD":{"TotalJulgamentos":69307,"TotalPendentes":12350},"ALERTA":{"Alerta01a05":6954,"Alerta06a12":5395,"Alerta13a20":0,"Alerta21Mais":1},"NivelRisco":{"Acompanhar":6954,"Monitorar":5395,"Urgente":1},"FaixaPrazo":{"01 a 05 dias":6954,"06 a 12 dias":5395,"21 dias ou mais":1},"DiasEspera":{"001":3494,"008":1388,"004":492,"003":217,"195":1,"002":895,"009":697,"010":8,"011":7,"007":1510,"006":1785,"005":1856},"TipoPortaria":{"20 Pontos":11182,"(vazio)":958,"Alcoolemia":95,"Auto Suspensivo":115},"TipoProcesso":{"SUSPENSÃO":11392,"CASSAÇÃO":958},"Status":{"DETRAN Aguardando Julgamento":12350},"DataCadastro":{"2026-10-13":3494,"2026-10-06":1388,"2026-10-10":492,"2026-10-11":217,"2026-04-02":1,"2026-10-12":895,"2026-10-05":697,"2026-10-04":8,"2026-10-03":7,"2026-10-07":1510,"2026-10-08":1785,"2026-10-09":1856}};
+const cphSeries=(group)=>CPH[group]||{};
+const cphPeriod=()=>{const n=Number($('period').value);const dates=Object.keys(cphSeries('Julgamentos')).concat(Object.keys(cphSeries('DataCadastro'))).sort();const end=dates[dates.length-1];if(!end)return ['', ''];if(!n)return ['',end];const d=new Date(end+'T12:00:00');d.setDate(d.getDate()-n+1);return [d.toISOString().slice(0,10),end]};
+const cphSum=(group)=>{const [start,end]=cphPeriod();return Object.entries(cphSeries(group)).reduce((a,[d,v])=>a+((!start||d>=start)&&d<=end?Number(v):0),0)};
+const cphMonthly=()=>{const [start,end]=cphPeriod(),a={};for(const g of ['Julgamentos','DataCadastro'])for(const [d,v] of Object.entries(cphSeries(g))){if((start&&d<start)||d>end)continue;const k=d.slice(0,7);(a[k]??={Julgamentos:0,DataCadastro:null});if(g==='DataCadastro')a[k].DataCadastro=(a[k].DataCadastro??0)+Number(v);else a[k].Julgamentos+=Number(v)}return Object.entries(a).sort(([x],[y])=>x.localeCompare(y))};
+const cphMonthLabel=(key)=>{const [year,month]=key.split('-').map(Number);return new Date(year,month-1,1).toLocaleDateString('pt-BR',{month:'long'}).replace(/^./,c=>c.toUpperCase())};
+const cphDaily=(g,d)=>Object.prototype.hasOwnProperty.call(cphSeries(g),d)?Number(cphSeries(g)[d]):null;
+function alertValues(){return [CPH.ALERTA.Alerta01a05,CPH.ALERTA.Alerta06a12,CPH.ALERTA.Alerta13a20,CPH.ALERTA.Alerta21Mais]}
+function drawMetrics(){const pending=CPH.CARD.TotalPendentes,j=cphSum('Julgamentos'),e=cphSum('DataCadastro'),a=CPH.ALERTA;const data=[['Processos pendentes',fmt(pending),'Estoque bruto atual • CPH BOT','files'],['Julgamentos realizados',fmt(j),'No período selecionado','check-circle'],['Cadastros identificados',fmt(e),'Somente datas disponíveis no JSON','arrow-up-right'],['Prazo desejado',fmt(Math.max(1,Math.round(Number($('simTarget').value)||30)))+' dias úteis','Meta definida no simulador • ajustável','calendar-check']];$('metrics').innerHTML=data.map(a=>`<div class="metric"><div class="head">${a[0]}<span class="glyph">${uiIcon(a[3])}</span></div><div class="value">${a[1]}</div><div class="hint">${a[2]}</div></div>`).join('')}
+function drawHome(){const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),e=m.map(([,v])=>v.DataCadastro),j=m.map(([,v])=>v.Julgamentos);makeChart('flowChart','bar',labels,[{label:'Cadastros conhecidos (parcial)',data:e,backgroundColor:'#a9c0ff'},{label:'Julgamentos',data:j,backgroundColor:'#3568f5'}]);const vals=alertValues();makeChart('healthChart','doughnut',alertNames,[{data:vals,backgroundColor:alertColors}],{cutout:'68%'});$('deadlines').innerHTML=alertNames.map((n,i)=>`<div class="mini"><div class="label">${n}</div><strong>${fmt(vals[i])}</strong><div class="bar"><i style="width:${100*vals[i]/CPH.CARD.TotalPendentes}%;background:${alertColors[i]}"></i></div></div>`).join('');const a=simSource(),days=Array.from({length:16},(_,i)=>i),projected=days.map(i=>Math.max(0,a.pending-i*a.judged));makeChart('projectionChart','line',days.map(x=>'Dia '+x),[{label:'Estoque projetado (sem entradas)',data:projected,borderColor:'#3568f5',tension:.2}]);makeChart('teamMiniChart','bar',labels.slice(-12),[{label:'Cadastros conhecidos (parcial)',data:e.slice(-12),backgroundColor:'#a9c0ff'},{label:'Julgamentos',data:j.slice(-12),backgroundColor:'#3568f5'}]);}
+function drawStock(){const vals=alertValues();makeChart('ageChart','bar',alertNames,[{label:'Pendentes',data:vals,backgroundColor:alertColors}],{indexAxis:'y'});makeChart('riskChart','doughnut',alertNames,[{data:vals,backgroundColor:alertColors}],{cutout:'68%'});$('oldestRows').innerHTML='<tr><td colspan="4">O JSON apresenta contagens por dias de espera, mas não contém identificação individual dos processos.</td></tr>'}
+function drawTeam(){const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),e=m.map(([,v])=>v.DataCadastro),j=m.map(([,v])=>v.Julgamentos);makeChart('teamChart','bar',labels,[{label:'Cadastros conhecidos (parcial)',data:e,backgroundColor:'#a9c0ff'},{label:'Julgamentos',data:j,backgroundColor:'#3568f5'}]);$('teamSummary').innerHTML=[['Julgamentos no período',cphSum('Julgamentos')],['Cadastros identificados',cphSum('DataCadastro')],['Estoque bruto atual',CPH.CARD.TotalPendentes]].map(([k,v])=>`<div class="mini"><div class="label">${k}</div><strong>${fmt(v)}</strong></div>`).join('')}
+function drawDaily(){let [y,m]=$('month').value.split('-').map(Number),days=new Date(y,m,0).getDate(),rows=[];for(let d=1;d<=days;d++){const date=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`,dt=new Date(y,m-1,d),a=cphDaily('DataCadastro',date),b=cphDaily('Julgamentos',date);rows.push(`<tr><td>${dt.toLocaleDateString('pt-BR')}</td><td>${dt.toLocaleDateString('pt-BR',{weekday:'long'})}</td><td>${a===null?'—':fmt(a)}</td><td>${b===null?'—':fmt(b)}</td><td>${a===null||b===null?'—':fmt(a-b)}</td></tr>`)}$('dailyRows').innerHTML=rows.join('')}
+function drawRecords(){$('recordRows').innerHTML='<tr><td colspan="4">Detalhamento individual indisponível no JSON agregado do CPH BOT.</td></tr>';return []}
+function drawAnalytics(){const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),e=m.map(([,v])=>v.DataCadastro),j=m.map(([,v])=>v.Julgamentos);makeChart('historicalChart','bar',labels,[{label:'Cadastros conhecidos (parcial)',data:e,backgroundColor:'#a8bffc'},{label:'Julgamentos',data:j,backgroundColor:'#2bb58b'}]);makeChart('durationChart','bar',alertNames,[{label:'Pendentes por prazo',data:alertValues(),backgroundColor:alertColors}]);$('historicalKpis').innerHTML=[['Julgamentos acumulados',CPH.CARD.TotalJulgamentos],['Estoque bruto',CPH.CARD.TotalPendentes],['Suspensões',CPH.TipoProcesso['SUSPENSÃO']],['Cassações',CPH.TipoProcesso['CASSAÇÃO']]].map(([k,v])=>`<div class="mini"><div class="label">${k}</div><strong>${fmt(v)}</strong></div>`).join('')}
+function calDayData(y,m,d){const date=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;return {cad:cphDaily('DataCadastro',date),jul:cphDaily('Julgamentos',date),dt:new Date(y,m,d)}}
+function drawCalendar(){const first=new Date(calYear,calMonth,1),total=new Date(calYear,calMonth+1,0).getDate(),offset=(first.getDay()+6)%7;$('calTitle').textContent=first.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});let html=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(w=>`<div class="cal-week">${w}</div>`).join('');for(let i=0;i<offset;i++)html+='<div class="cal-blank"></div>';for(let d=1;d<=total;d++){const {cad}=calDayData(calYear,calMonth,d),level=cad===null?'':cad<500?'low':cad<1400?'mid':'high';html+=`<button class="cal-day ${level} ${calSelected===d?'selected':''}" data-day="${d}" type="button"><small>${d}</small><strong>${cad===null?'—':fmt(cad)}</strong></button>`}$('calendarGrid').innerHTML=html;document.querySelectorAll('#calendarGrid [data-day]').forEach(b=>b.onclick=()=>{calSelected=Number(b.dataset.day);const x=calDayData(calYear,calMonth,calSelected);$('calDayDetail').innerHTML=`<strong>${x.dt.toLocaleDateString('pt-BR')}</strong> · Cadastros: ${x.cad===null?'sem dados':fmt(x.cad)} · Julgamentos: ${x.jul===null?'sem dados':fmt(x.jul)}`;drawCalendar()})}
+function drawDailyCapacity(){const [start,end]=cphPeriod(),dates=Object.keys(CPH.Julgamentos).filter(d=>(!start||d>=start)&&d<=end).sort().slice(-20),capacity=dates.map(()=>12*75),done=dates.map(d=>CPH.Julgamentos[d]);makeChart('dailyCapacityChart','line',dates,[{label:'Capacidade de referência (12 × 75)',data:capacity,borderColor:'#8ca9e9'},{label:'Julgamentos informados',data:done,borderColor:'#3568f5'}])}
+function drawMonthlyComparison(){const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),e=m.map(([,v])=>v.DataCadastro),j=m.map(([,v])=>v.Julgamentos);makeChart('monthlyChart','bar',labels,[{label:'Cadastros conhecidos (parcial)',data:e,backgroundColor:'#a8bffc'},{label:'Julgamentos',data:j,backgroundColor:'#2bb58b'}])}
+function simSource(){const pending=CPH.CARD.TotalPendentes,team=12,remoteDaily=team*75,officeDaily=team*50,weekly=remoteDaily*4+officeDaily,judged=weekly/5;return {pending,entry:0,judged,net:judged,team,remoteDaily,officeDaily,weekly}}
+function simEstimateText(){const a=simSource();return fmt(Math.ceil(a.pending/a.judged))+' dias úteis'}
+function drawSimulation(){const a=simSource(),target=Math.max(1,Math.round(Number($('simTarget').value)||30)),need=Math.ceil(a.pending/target),labels=Array.from({length:13},(_,i)=>'Dia útil '+Math.round(i*target/12)),projected=labels.map((_,i)=>Math.max(0,Math.round(a.pending-a.judged*i*target/12))),goal=labels.map((_,i)=>Math.max(0,Math.round(a.pending-need*i*target/12)));$('simInputs').innerHTML=[['Estoque inicial',fmt(a.pending)],['Julgadores',fmt(a.team)],['Capacidade média / dia útil',fmt(a.judged)],['Capacidade semanal',fmt(a.weekly)]].map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${v}</strong></div>`).join('');makeChart('simChart','line',labels,[{label:'Capacidade planejada',data:projected,borderColor:'#3568f5'},{label:'Meta de escoamento',data:goal,borderColor:'#0cad7d',borderDash:[5,4]}]);$('simResults').innerHTML=[['Prazo desejado',fmt(target)+' dias úteis'],['Julgamentos necessários por dia',fmt(need)],['Julgamentos necessários por semana',fmt(Math.ceil(a.pending/target*5))],['Prazo estimado na capacidade atual',simEstimateText()]].map(([l,v])=>`<div class="mini"><div class="label">${l}</div><strong>${v}</strong></div>`).join('');$('simNote').textContent=`Atenção: o prazo desejado é uma META; o prazo estimado considera a capacidade integral da equipe e pode ser menor. Os dois números não precisam coincidir. Cenário: 12 julgadores, 4 dias de teletrabalho × 75 julgamentos e 1 dia presencial × 50 julgamentos por julgador. Capacidade semanal: ${fmt(a.weekly)}. Simulação do estoque bruto de ${fmt(a.pending)}, sem novas entradas. Os dados não identificam a escala diária individual.`}
+function drawAll(){drawMetrics();drawHome();drawStock();drawTeam();drawDaily();drawRecords();drawAnalytics();drawSimulation();drawRestored();updateChartContrast();requestAnimationFrame(()=>Object.values(charts).forEach(c=>{if(c.canvas.closest('.section.active'))c.resize()}))}
+
+
+// Gráficos distintos: julgamentos mensais, produtividade, estoque e variação percentual.
+function drawHome(){
+ const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),j=m.map(([,v])=>v.Julgamentos);
+ makeChart('flowChart','bar',labels,[{label:'Julgamentos realizados',data:j,backgroundColor:'#3568f5',borderRadius:5,maxBarThickness:45}]);
+ const vals=alertValues();makeChart('healthChart','doughnut',alertNames,[{data:vals,backgroundColor:alertColors}],{cutout:'68%'});
+ $('deadlines').innerHTML=alertNames.map((n,i)=>`<div class="mini"><div class="label">${n}</div><strong>${fmt(vals[i])}</strong><div class="bar"><i style="width:${100*vals[i]/CPH.CARD.TotalPendentes}%;background:${alertColors[i]}"></i></div></div>`).join('');
+ const a=simSource(),days=Array.from({length:16},(_,i)=>i),projected=days.map(i=>Math.max(0,a.pending-i*a.judged));
+ makeChart('projectionChart','line',days.map(x=>'Dia '+x),[{label:'Estoque projetado (sem entradas)',data:projected,borderColor:'#3568f5',tension:.2}]);
+ const susp=CPH.TipoProcesso['SUSPENSÃO']||0,cass=CPH.TipoProcesso['CASSAÇÃO']||0;
+ makeChart('teamMiniChart','doughnut',['Suspensão','Cassação'],[{label:'Processos pendentes',data:[susp,cass],backgroundColor:['#3568f5','#10b981'],borderWidth:2}],{cutout:'62%'});
+}
+function drawAnalytics(){
+ const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),j=m.map(([,v])=>v.Julgamentos);
+ const avg=j.length?j.reduce((a,b)=>a+b,0)/j.length:0;
+ makeChart('historicalChart','line',labels,[
+ {label:'Julgamentos por mês',data:j,borderColor:'#10b981',backgroundColor:'#10b981',pointRadius:4,tension:.3,fill:false},
+ {label:'Média mensal',data:j.map(()=>Math.round(avg)),borderColor:'#e7a12b',borderDash:[6,5],pointRadius:0,tension:0}
+ ]);
+ makeChart('durationChart','bar',alertNames,[{label:'Pendentes por prazo',data:alertValues(),backgroundColor:alertColors}]);
+ $('historicalKpis').innerHTML=[['Julgamentos acumulados',CPH.CARD.TotalJulgamentos],['Estoque bruto',CPH.CARD.TotalPendentes],['Suspensões',CPH.TipoProcesso['SUSPENSÃO']],['Cassações',CPH.TipoProcesso['CASSAÇÃO']]].map(([k,v])=>`<div class="mini"><div class="label">${k}</div><strong>${fmt(v)}</strong></div>`).join('');
+}
+function drawMonthlyComparison(){
+ const m=cphMonthly(),labels=m.map(([k])=>cphMonthLabel(k)),j=m.map(([,v])=>v.Julgamentos);
+ const variation=j.map((v,i)=>i===0||!j[i-1]?null:Number(((v-j[i-1])*100/j[i-1]).toFixed(1)));
+ makeChart('monthlyChart','bar',labels,[{label:'Variação em relação ao mês anterior (%)',data:variation,backgroundColor:variation.map(v=>v===null?'#94a3b8':v>=0?'#10b981':'#e45663'),borderRadius:4,maxBarThickness:45}],{scales:{y:{grid:{color:'#edf1f6'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}},plugins:{tooltip:{callbacks:{label:c=>c.raw===null?'Sem mês anterior':`${c.raw>0?'+':''}${c.raw}%`}}}});
+}
+
+// Atualização após integrar a fonte agregada.
+drawAll();
+</script></body></html>
