@@ -751,13 +751,22 @@ function dhcApplyJSON(payload){
  const status=document.getElementById('dhcJsonStatus');
  if(status)status.textContent=`JSON atualizado · ${count}/4 faixas com distribuição diária`;
 }
-// Calendário alimentado exclusivamente pelas datas reais do JSON; sem números simulados.
-const dhcOriginalCalendar=drawCalendar;
+// Calendário: cadastros reais na visão geral; pendentes por data/faixa ao filtrar alertas.
+// Aceita PENDENTE_DIA_FAIXA tanto no formato plano (data|alerta) como agrupado por alerta.
+function dhcCalendarCount(day, selected){
+ const daily=CPH.PENDENTE_DIA_FAIXA||{};
+ if(selected.length){
+  const available=selected.every(k=>Object.prototype.hasOwnProperty.call(daily,k)||Object.keys(daily).some(x=>x.endsWith('|'+k)));
+  if(!available)return null;
+  return selected.reduce((sum,k)=>sum+Number(daily[k]?.[day]??daily[day+'|'+k]??0),0);
+ }
+ // Sem filtro: o calendário original mostra o movimento diário de cadastros.
+ const source=CPH.DataCadastro||{};
+ return Object.prototype.hasOwnProperty.call(source,day)?Number(source[day]||0):null;
+}
 drawCalendar=function(){
  const keys=['Alerta01a05','Alerta06a12','Alerta13a20','Alerta21Mais'];
- const selected=(window.dhcSelectedAges||[]).map(i=>keys[i]).filter(Boolean);
- const daily=CPH.PENDENTE_DIA_FAIXA||{};
- const valid=selected.length?selected.every(k=>Object.prototype.hasOwnProperty.call(daily,k)):keys.every(k=>Object.prototype.hasOwnProperty.call(daily,k));
+ const selected=(window.dhcCrossFilter?.state?.ages||[]).map(i=>keys[i]).filter(Boolean);
  const first=new Date(calYear,calMonth,1),total=new Date(calYear,calMonth+1,0).getDate(),offset=(first.getDay()+6)%7;
  $('calTitle').textContent=first.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
  let html=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(w=>`<div class="cal-week">${w}</div>`).join('');
@@ -765,29 +774,25 @@ drawCalendar=function(){
  const counts=[];
  for(let d=1;d<=total;d++){
   const day=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-  const chosen=selected.length?selected:keys;
-  counts.push(valid?chosen.reduce((n,k)=>n+Number(daily[k]?.[day]||0),0):null);
+  counts.push(dhcCalendarCount(day,selected));
  }
  const peak=Math.max(1,...counts.filter(x=>x!==null));
  for(let d=1;d<=total;d++){
   const value=counts[d-1],level=value===null||value===0?'':value/peak<.35?'low':value/peak<.7?'mid':'high';
-  html+=`<button class="cal-day ${level} ${calSelected===d?'selected':''}" data-day="${d}" type="button"><small>${d}</small><strong>${value===null?'—':value===0?'—':fmt(value)}</strong></button>`;
+  html+=`<button class="cal-day ${level} ${calSelected===d?'selected':''}" data-day="${d}" type="button"><small>${d}</small><strong>${value===null||value===0?'—':fmt(value)}</strong></button>`;
  }
  $('calendarGrid').innerHTML=html;
  const desc=$('calDayDetail');
  if(desc){
   desc.dataset.dhcAlert='1';
-  const chosen=selected.length?selected:keys;
-  const totalSelected=chosen.reduce((n,k)=>n+Number(CPH.ALERTA?.[k]||0),0);
   const date=calSelected?`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(calSelected).padStart(2,'0')}`:null;
-  desc.textContent=!valid?'Distribuição diária não disponível. Atualize o JSON com PENDENTE_DIA_FAIXA para as quatro faixas.':date?`${date.split('-').reverse().join('/')} · ${fmt(counts[calSelected-1]||0)} processos ${selected.length?'dos alertas selecionados':'pendentes'} · Total das faixas: ${fmt(totalSelected)}.`:`${fmt(totalSelected)} processos ${selected.length?'nos alertas selecionados':'pendentes'} · Selecione um dia para consultar o quantitativo.`;
+  const value=date?dhcCalendarCount(date,selected):null;
+  const totalSelected=selected.reduce((n,k)=>n+Number(CPH.ALERTA?.[k]||0),0);
+  const missing=selected.length&&counts.every(v=>v===null);
+  desc.textContent=missing?'Distribuição por data e faixa não disponível neste JSON. Inclua PENDENTE_DIA_FAIXA.':date?`${date.split('-').reverse().join('/')} · ${value===null?'sem dados':fmt(value)} ${selected.length?'processos pendentes nas faixas selecionadas':'cadastros'}.`:selected.length?`${fmt(totalSelected)} processos nas faixas selecionadas. Selecione um dia para consultar a distribuição.`:'Selecione um dia para consultar o total de cadastros.';
  }
- document.querySelectorAll('#calendarGrid [data-day]').forEach(b=>b.onclick=()=>{
-  calSelected=Number(b.dataset.day);
-  drawCalendar();
- });
+ document.querySelectorAll('#calendarGrid [data-day]').forEach(b=>b.onclick=()=>{calSelected=Number(b.dataset.day);drawCalendar()});
 };
-;
 // Fonte única de dados: const CPH atualizado pelo deploy Python.
 // Atualização após integrar a fonte agregada.
 drawAll();
