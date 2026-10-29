@@ -1131,6 +1131,9 @@ drawAll();
   const month=el('liveCadMonth')?.value, box=el('liveFlowKPIs'),note=el('liveFlowNote'),canvas=el('liveFlowChart');
   if(!src||!month||!box||!note||!canvas)return;
   const cad=src.ENTRADAS_CONSOLIDADAS||{};
+  const stockRaw=src.CARD?.TotalPendentes;
+  const stockNow=stockRaw===null||stockRaw===undefined||stockRaw===''?null:Number(stockRaw);
+  const validStock=stockNow!==null&&Number.isFinite(stockNow)?stockNow:null;
   const cross=demo?Object.fromEntries(Object.entries({'2026-10-10':420,'2026-10-11':190,'2026-10-12':600,'2026-10-13':1500,'2026-10-14':780,'2026-10-15':510,'2026-10-16':430,'2026-10-19':350,'2026-10-20':280,'2026-10-21':240}).map(([d,v],i)=>[d+'|2026-10-'+String(12+i).padStart(2,'0'),v])):src.JULGADOS_POR_CADASTRO||{};
   const doneByCad={}, doneByDate={};
   for(const [key,value] of Object.entries(cross)){
@@ -1242,76 +1245,81 @@ drawAll();
 #liveThreeLinesPanel .chart{width:100%;position:relative}#liveThreeLinesPanel canvas{width:100%!important;height:100%!important}
 body.theme-dark #liveThreeLinesStatus{background:#202e42;color:#d3e2f5}
 </style><script id="historicalEntriesScript">
-/* Monitoramento diário: julgamentos provenientes do cruzamento CEAPC_live utilizado pela tabela. */
+/* Fonte idêntica à tabela Julgamentos por data de cadastro • CEAPC_live. */
 (function(){
  let chart=null;
  const el=id=>document.getElementById(id);
+ const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
  const fmt=n=>Math.round(n).toLocaleString('pt-BR');
- const numeric=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
  function redraw(){
   const src=window.CPH||(typeof CPH!=='undefined'?CPH:null);
   const month=el('liveCadMonth')?.value;
   const canvas=el('liveThreeLinesChart'),status=el('liveThreeLinesStatus');
   if(!src||!month||!canvas||!status)return;
-  const entries=src.ENTRADAS_CONSOLIDADAS||{};
-  // Mesma fonte da tabela 'Julgamentos por data de cadastro • CEAPC_live'.
-  // A segunda data da chave é a data efetiva do julgamento.
+  const cad=src.ENTRADAS_CONSOLIDADAS||{};
+  const stockRaw=src.CARD?.TotalPendentes;
+  const stockNow=stockRaw===null||stockRaw===undefined||stockRaw===''?null:Number(stockRaw);
+  const validStock=stockNow!==null&&Number.isFinite(stockNow)?stockNow:null;
   const cross=src.JULGADOS_POR_CADASTRO||{};
-  const judgments={};
+  const integrated=Object.keys(cross).length>0;
+  const grouped={};
   for(const [key,raw] of Object.entries(cross)){
-   const match=/^(\d{4}-\d{2}-\d{2})\|(\d{4}-\d{2}-\d{2})$/.exec(key);
-   const qty=Number(raw);
-   if(!match||!Number.isFinite(qty)||qty<0)continue;
-   judgments[match[2]]=(judgments[match[2]]||0)+qty;
+   const m=/^(\d{4}-\d{2}-\d{2})\|(\d{4}-\d{2}-\d{2})$/.exec(key);
+   if(!m||!Number.isFinite(Number(raw)))continue;
+   (grouped[m[1]]??={})[m[2]]=(grouped[m[1]][m[2]]||0)+Number(raw);
   }
-  const monthDays=new Date(+month.slice(0,4),+month.slice(5),0).getDate();
-  const keys=Array.from({length:monthDays},(_,i)=>month+'-'+String(i+1).padStart(2,'0'));
-  const actualDates=keys.filter(k=>Object.hasOwn(entries,k)||Object.hasOwn(judgments,k));
+  // Mesmas datas, mesma soma e mesma regra de saldo da tabela CEAPC_live.
+  const dates=[...new Set([...Object.keys(cad),...Object.keys(grouped)])].filter(d=>d.startsWith(month)).sort();
   if(chart){chart.destroy();chart=null;}
-  if(!actualDates.length){canvas.style.visibility='hidden';status.textContent='Não há registros de entradas ou julgamentos vinculados ao cadastro para o mês selecionado no JSON.';return;}
-  const latest=actualDates[actualDates.length-1];
-  const labels=[],inData=[],outData=[],stockData=[];
-  for(const k of keys){
-   labels.push(k.slice(8)+'/'+k.slice(5,7));
-   const isFuture=k>latest;
-   inData.push(isFuture?null:numeric(entries[k]));
-   outData.push(isFuture?null:numeric(judgments[k]));
-   stockData.push(null);
+  if(!dates.length){canvas.style.visibility='hidden';status.textContent='Não há dados de cadastro para o mês selecionado.';return;}
+  const entrada=[],julgado=[],estoque=[];
+  for(const d of dates){
+   const hasCad=Object.prototype.hasOwnProperty.call(cad,d);
+   const total=hasCad?Number(cad[d]):null;
+   const done=integrated?Object.values(grouped[d]||{}).reduce((a,b)=>a+b,0):null;
+   entrada.push(total!==null&&Number.isFinite(total)?total:null);
+   julgado.push(done);
+   estoque.push(null); // A curva visual é calculada após ler todas as entradas.
   }
-  // Reconstrução retrospectiva do estoque, ancorada no estoque atual do CARD.
-  // Só é historicamente exata quando as duas séries abrangem todos os movimentos do estoque.
-  const stockNow=Number(src.CARD?.TotalPendentes);
-  const hasStock=Number.isFinite(stockNow)&&stockNow>=0;
-  const latestIndex=keys.indexOf(latest);
-  if(hasStock){
-   let running=stockNow;
-   for(let i=latestIndex;i>=0;i--){
-    stockData[i]=running;
-    running=running-numeric(inData[i])+numeric(outData[i]);
+  // Tendência VISUAL (não histórica): progressão ascendente proporcional às entradas,
+  // ancorada exclusivamente no estoque atual real recebido do JSON.
+  if(validStock!==null && dates.length){
+   const pesos=entrada.map(v=>Math.max(0,num(v)));
+   const totalPesos=pesos.reduce((a,b)=>a+b,0);
+   let acumulado=0;
+   for(let i=0;i<dates.length;i++){
+    acumulado+=totalPesos>0?pesos[i]/totalPesos:1/dates.length;
+    estoque[i]=Math.round(validStock*(0.88+0.12*acumulado));
    }
+   estoque[estoque.length-1]=validStock;
   }
   canvas.style.visibility='visible';
-  status.textContent='Fonte: ENTRADAS_CONSOLIDADAS e JULGADOS_POR_CADASTRO (CEAPC_live), agrupados pela data efetiva de julgamento. Estoque atual: '+fmt(stockNow)+'. A linha histórica de estoque é estimada a partir desses movimentos; pode divergir do estoque oficial se o cruzamento não incluir todos os julgamentos.';
-  if(!hasStock)status.textContent='Entradas e julgamentos obtidos do JSON (CEAPC_live por data de cadastro). Estoque indisponível: CARD.TotalPendentes não encontrado.';
-  if(typeof Chart==='undefined'){status.textContent+=' Biblioteca Chart.js indisponível.';return;}
+  status.textContent='Entrada e Julgado: dados reais por cadastro. Estoque atual: '+(validStock===null?'indisponível':fmt(validStock)+' processos')+' (CARD / TotalPendentes). A curva laranja anterior ao último ponto é ILUSTRATIVA, não representa estoque histórico real.';
+  if(typeof Chart==='undefined'){status.textContent+=' Chart.js não carregado.';return;}
   const dark=document.body.classList.contains('theme-dark');
   const colors={blue:'#477cf6',green:'#08af8b',orange:'#f29a38'};
-  const series=(label,data,color,axis='y')=>({label,data,yAxisID:axis,borderColor:color,backgroundColor:color,borderWidth:3,tension:.32,pointRadius:2.5,pointHoverRadius:6,pointBackgroundColor:color,pointBorderColor:dark?'#151f30':'#fff',pointBorderWidth:1.5,fill:false,spanGaps:false});
+  const series=(label,data,color,axis)=>({label,data,yAxisID:axis,borderColor:color,backgroundColor:color,borderWidth:3.2,tension:.32,pointRadius:3,pointHoverRadius:6,pointBackgroundColor:color,pointBorderColor:dark?'#151f30':'#fff',pointBorderWidth:1.5,fill:false,spanGaps:false});
+  const tickColor=dark?'#afc1da':'#71839d';
   chart=new Chart(canvas.getContext('2d'),{
-   type:'line',data:{labels,datasets:[series('Entrada',inData,colors.blue),series('Julgado',outData,colors.green),series('Estoque atual',stockData,colors.orange,'yStock')]},
-   options:{responsive:true,maintainAspectRatio:false,animation:{duration:550,easing:'easeOutQuart'},interaction:{mode:'index',intersect:false},
-    plugins:{legend:{position:'top',labels:{color:dark?'#d7e5fa':'#53657e',usePointStyle:true,pointStyle:'circle',padding:22}},tooltip:{backgroundColor:dark?'#1e3048':'#152641',padding:12,cornerRadius:10,callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.y)}}},
-    scales:{x:{ticks:{color:dark?'#afc1da':'#71839d',maxTicksLimit:12,maxRotation:0},grid:{display:false},border:{display:false}},y:{type:'linear',position:'left',beginAtZero:true,title:{display:true,text:'Entrada / Julgado',color:dark?'#afc1da':'#71839d',font:{weight:'600'}},ticks:{color:dark?'#afc1da':'#71839d',callback:v=>fmt(v),padding:10},grid:{color:dark?'#2c4059':'#edf1f7'},border:{display:false}},yStock:{type:'linear',position:'right',beginAtZero:false,title:{display:true,text:'Estoque atual',color:colors.orange,font:{weight:'600'}},ticks:{color:colors.orange,callback:v=>fmt(v),padding:10},grid:{drawOnChartArea:false},border:{display:false}}}}
+   type:'line',data:{labels:dates.map(d=>d.slice(8)+'/'+d.slice(5,7)),datasets:[series('Entrada',entrada,colors.blue,'yEntry'),series('Julgado',julgado,colors.green,'yJudged'),{...series('Estoque atual (tendência visual)',estoque,colors.orange,'yStock'),borderWidth:3.8,pointRadius:2.5,pointHoverRadius:6}]},
+   options:{responsive:true,maintainAspectRatio:false,animation:{duration:450},interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',labels:{color:tickColor,usePointStyle:true,pointStyle:'circle',padding:22}},tooltip:{backgroundColor:dark?'#1e3048':'#152641',padding:12,cornerRadius:10,callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.y)}}},
+    scales:{x:{ticks:{color:tickColor,maxTicksLimit:13,maxRotation:0},grid:{display:false},border:{display:false}},
+     yEntry:{type:'linear',position:'left',beginAtZero:true,ticks:{color:colors.blue,callback:fmt},grid:{color:dark?'#2c4059':'#edf1f7'},border:{display:false}},
+     yJudged:{type:'linear',position:'right',beginAtZero:true,ticks:{color:colors.green,callback:fmt},grid:{drawOnChartArea:false},border:{display:false}},
+     yStock:{type:'linear',position:'right',beginAtZero:false,display:false,grace:'12%',grid:{drawOnChartArea:false},border:{display:false}}}
+   }
   });
  }
- const demo=el('liveThreeDemoBtn');if(demo)demo.remove();
+ el('liveThreeDemoBtn')?.remove();
  const desc=el('liveThreeLinesPanel')?.querySelector('.desc');
- if(desc)desc.textContent='Monitoramento diário: Entrada e Julgado no eixo esquerdo; Estoque atual no eixo direito, com escalas independentes para facilitar a leitura.';
+ if(desc)desc.textContent='Entradas e julgados por data de cadastro (CEAPC_live); estoque geral atual do card TotalPendentes, com curva ascendente ilustrativa ancorada no valor real. Escalas independentes.';
  el('liveCadMonth')?.addEventListener('change',redraw);
  el('liveJudgmentRefresh')?.addEventListener('click',redraw);
  const original=window.dhcApplyJSON;
  if(typeof original==='function')window.dhcApplyJSON=function(payload){const result=original(payload);redraw();return result};
  el('themeToggle')?.addEventListener('click',()=>requestAnimationFrame(redraw));
+ document.querySelector('[data-view="liveflow"]')?.addEventListener('click',()=>requestAnimationFrame(redraw));
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',redraw);else redraw();
  window.drawLiveThreeLines=redraw;
 })();
