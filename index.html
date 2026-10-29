@@ -1242,7 +1242,7 @@ drawAll();
 #liveThreeLinesPanel .chart{width:100%;position:relative}#liveThreeLinesPanel canvas{width:100%!important;height:100%!important}
 body.theme-dark #liveThreeLinesStatus{background:#202e42;color:#d3e2f5}
 </style><script id="historicalEntriesScript">
-/* Monitoramento diário: dois eixos para evitar sobreposição de escalas; dados originais preservados. */
+/* Monitoramento diário: julgamentos provenientes do cruzamento CEAPC_live utilizado pela tabela. */
 (function(){
  let chart=null;
  const el=id=>document.getElementById(id);
@@ -1253,12 +1253,22 @@ body.theme-dark #liveThreeLinesStatus{background:#202e42;color:#d3e2f5}
   const month=el('liveCadMonth')?.value;
   const canvas=el('liveThreeLinesChart'),status=el('liveThreeLinesStatus');
   if(!src||!month||!canvas||!status)return;
-  const entries=src.ENTRADAS_CONSOLIDADAS||{},judgments=src.Julgamentos||{};
+  const entries=src.ENTRADAS_CONSOLIDADAS||{};
+  // Mesma fonte da tabela 'Julgamentos por data de cadastro • CEAPC_live'.
+  // A segunda data da chave é a data efetiva do julgamento.
+  const cross=src.JULGADOS_POR_CADASTRO||{};
+  const judgments={};
+  for(const [key,raw] of Object.entries(cross)){
+   const match=/^(\d{4}-\d{2}-\d{2})\|(\d{4}-\d{2}-\d{2})$/.exec(key);
+   const qty=Number(raw);
+   if(!match||!Number.isFinite(qty)||qty<0)continue;
+   judgments[match[2]]=(judgments[match[2]]||0)+qty;
+  }
   const monthDays=new Date(+month.slice(0,4),+month.slice(5),0).getDate();
   const keys=Array.from({length:monthDays},(_,i)=>month+'-'+String(i+1).padStart(2,'0'));
   const actualDates=keys.filter(k=>Object.hasOwn(entries,k)||Object.hasOwn(judgments,k));
   if(chart){chart.destroy();chart=null;}
-  if(!actualDates.length){canvas.style.visibility='hidden';status.textContent='Não há registros de entradas ou julgamentos para o mês selecionado no JSON.';return;}
+  if(!actualDates.length){canvas.style.visibility='hidden';status.textContent='Não há registros de entradas ou julgamentos vinculados ao cadastro para o mês selecionado no JSON.';return;}
   const latest=actualDates[actualDates.length-1];
   const labels=[],inData=[],outData=[],stockData=[];
   for(const k of keys){
@@ -1281,8 +1291,8 @@ body.theme-dark #liveThreeLinesStatus{background:#202e42;color:#d3e2f5}
    }
   }
   canvas.style.visibility='visible';
-  status.textContent='Dados reais do JSON • Entradas: ENTRADAS_CONSOLIDADAS • Julgados: Julgamentos (data efetiva) • Estoque: saldo atual de '+fmt(stockNow)+' processos, reconstituído retrospectivamente pelos movimentos diários. O histórico de estoque é estimado se houver movimentos ausentes ou mudanças fora destas bases.';
-  if(!hasStock)status.textContent='Dados reais de entradas e julgamentos. Estoque indisponível: CARD.TotalPendentes não encontrado no JSON.';
+  status.textContent='Fonte: ENTRADAS_CONSOLIDADAS e JULGADOS_POR_CADASTRO (CEAPC_live), agrupados pela data efetiva de julgamento. Estoque atual: '+fmt(stockNow)+'. A linha histórica de estoque é estimada a partir desses movimentos; pode divergir do estoque oficial se o cruzamento não incluir todos os julgamentos.';
+  if(!hasStock)status.textContent='Entradas e julgamentos obtidos do JSON (CEAPC_live por data de cadastro). Estoque indisponível: CARD.TotalPendentes não encontrado.';
   if(typeof Chart==='undefined'){status.textContent+=' Biblioteca Chart.js indisponível.';return;}
   const dark=document.body.classList.contains('theme-dark');
   const colors={blue:'#477cf6',green:'#08af8b',orange:'#f29a38'};
