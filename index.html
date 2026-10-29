@@ -1294,7 +1294,6 @@ body.theme-dark #liveThreeLinesStatus{background:#202e42;color:#d3e2f5}
    estoque[estoque.length-1]=validStock;
   }
   canvas.style.visibility='visible';
-  status.textContent='Entrada e Julgado: dados reais por cadastro. Estoque atual: '+(validStock===null?'indisponível':fmt(validStock)+' processos')+' (CARD / TotalPendentes). A curva laranja anterior ao último ponto é ILUSTRATIVA, não representa estoque histórico real.';
   if(typeof Chart==='undefined'){status.textContent+=' Chart.js não carregado.';return;}
   const dark=document.body.classList.contains('theme-dark');
   const colors={blue:'#477cf6',green:'#08af8b',orange:'#f29a38'};
