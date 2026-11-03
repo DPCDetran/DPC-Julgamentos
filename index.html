@@ -1362,7 +1362,11 @@ body.theme-dark #dailyJudgmentsPanel .flow-chart-empty{background:#1b2a3e;border
    return [date,(weekday===0||weekday===6)?0:Math.round(440+((i*83+47)%340)+95*Math.sin(i*.75))];
   });
   const isDemo=demoEnabled||realRows.length===0;
-  const rows=isDemo?demoRows:realRows;
+  // Preserva todos os dias do mês, mesmo quando o JSON não contém registro naquele dia.
+  // Dias ausentes são exibidos com valor zero, sem criar julgamentos fictícios.
+  const realByDate=new Map(realRows);
+  const calendarRows=demoRows.map(([date])=>[date,realByDate.has(date)?Number(realByDate.get(date)):0]);
+  const rows=isDemo?demoRows:calendarRows;
   const demoButton=el('dailyJudgmentsDemo');
   if(demoButton){demoButton.textContent=isDemo?'Exibindo exemplo • Voltar aos dados reais':'Ver demonstração';demoButton.disabled=!realRows.length;demoButton.title=!realRows.length?'Os dados reais ainda não chegaram ao JSON; demonstração automática.':'';}
   if(barChart){barChart.destroy();barChart=null;}
@@ -1407,7 +1411,7 @@ body.theme-dark #dailyJudgmentsPanel .flow-chart-empty{background:#1b2a3e;border
     interaction:{mode:'index',intersect:false},
     plugins:{legend:{display:false},tooltip:{backgroundColor:dark?'#20334c':'#142641',padding:14,cornerRadius:12,
      displayColors:false,callbacks:{title:items=>'Dia '+items[0].label+'/'+month.slice(0,4),label:item=>fmt(item.parsed.y)+' processos julgados'}}},
-    scales:{x:{grid:{display:false},border:{display:false},ticks:{color:tick,maxRotation:0,autoSkip:true,maxTicksLimit:12,padding:10}},
+    scales:{x:{grid:{display:false},border:{display:false},ticks:{color:tick,font:{size:10},maxRotation:55,minRotation:45,autoSkip:false,padding:8}},
      y:{beginAtZero:true,grace:'12%',grid:{color:dark?'rgba(143,169,202,.12)':'rgba(120,146,180,.13)'},border:{display:false},ticks:{color:tick,precision:0,padding:12,callback:value=>fmt(value)}}}}
   });
  }
