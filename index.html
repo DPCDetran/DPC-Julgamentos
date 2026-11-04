@@ -1524,11 +1524,26 @@ $('jcSaveGoals').onclick=async()=>{
   // por isso a gravação só é considerada concluída após uma leitura de confirmação.
   const changed={};for(const [n,v] of Object.entries(draftGoals))if(goals[n]!==v)changed[n]=v;
   if(!Object.keys(changed).length){dirty=false;editing.clear();render();return;}
-  const form=new URLSearchParams();form.set('payload',JSON.stringify({idToken:credential,metas:changed}));
+  const requestId='meta-'+Date.now()+'-'+Math.random().toString(36).slice(2,12);
+  const form=new URLSearchParams();
+  form.set('payload',JSON.stringify({idToken:credential,metas:changed,requestId}));
   await fetch(METAS_API,{method:'POST',mode:'no-cors',body:form});
+  // O POST do Apps Script redireciona e não expõe a resposta ao navegador.
+  // A API guarda o resultado da operação por requestId para consulta segura.
+  let resultado=null;
+  for(let attempt=0;attempt<7;attempt++){
+   await new Promise(r=>setTimeout(r,650*(attempt+1)));
+   const response=await fetch(METAS_API+'?acao=resultado&id='+encodeURIComponent(requestId)+'&_='+Date.now(),{cache:'no-store'});
+   if(!response.ok)continue;
+   const data=await response.json();
+   if(data.pendente)continue;
+   resultado=data;break;
+  }
+  if(!resultado){throw new Error('O servidor não confirmou a operação. Verifique se o Code.gs atualizado foi implantado.');}
+  if(!resultado.sucesso){throw new Error(resultado.erro||'O servidor recusou a gravação.');}
   let confirmed=false;
-  for(let attempt=0;attempt<3;attempt++){
-   await new Promise(r=>setTimeout(r,700*(attempt+1)));
+  for(let attempt=0;attempt<5;attempt++){
+   await new Promise(r=>setTimeout(r,650*(attempt+1)));
    const r=await fetch(METAS_API+'?acao=listar&_='+Date.now(),{cache:'no-store'});
    if(!r.ok)continue;const j=await r.json();
    if(j.sucesso&&Object.entries(changed).every(([n,v])=>Number(j.metas[n])===v)){
@@ -1536,7 +1551,7 @@ $('jcSaveGoals').onclick=async()=>{
    }
   }
   status(confirmed?'Metas salvas e confirmadas no Google Sheets.':'Não foi possível confirmar a gravação. Verifique a autorização e a planilha.',!confirmed);
- }catch(e){status('Falha ao enviar alterações: '+e.message,true)}finally{render()}
+ }catch(e){status('Erro ao salvar metas: '+e.message,true)}finally{render()}
 };
 const old=window.dhcApplyJSON;if(typeof old==='function')window.dhcApplyJSON=function(payload){const r=old.apply(this,arguments);read(payload);return r};
 window.dhcJudgesRead=read;
