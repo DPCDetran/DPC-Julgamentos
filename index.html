@@ -1478,5 +1478,7 @@ $('jcDate').addEventListener('change',render);$('jcToday').onclick=()=>{$('jcDat
 $('jcAdd').onclick=()=>{const name=norm(prompt('Nome completo do julgador:'));if(!name)return;const g=Number(prompt('Meta diária fixa de '+name+':','60'));if(!Number.isFinite(g)||g<=0)return;goals[name]=Math.floor(g);save();render()};
 const old=window.dhcApplyJSON;if(typeof old==='function')window.dhcApplyJSON=function(payload){const r=old.apply(this,arguments);read(payload);return r};
 window.dhcJudgesRead=read;
-setMode(false);
+// O deploy Python atualiza o objeto CPH embutido, sem chamar dhcApplyJSON.
+// Inicializa a aba diretamente com a mesma fonte utilizada pelas demais abas.
+read(typeof CPH!=="undefined" ? CPH : (window.CPH||{}));
 })();</script></body></html>
