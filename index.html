@@ -1657,8 +1657,7 @@ function syncTeamFromControl(names){
   const first=jcFirstName(name);
   const presencial=JC_PRESENTIAL_DAYS[first];
   // Metas especiais (ex.: 30/40) continuam individuais em todos os dias úteis.
-  // Vanessa auxilia apenas no judicial: sua meta permanece a cadastrada na planilha.
-  if(first==='vanessa')return configured;
+  // Vanessa: sexta-feira presencial (60); demais dias úteis em teletrabalho (75).
   if(![50,60,75].includes(configured))return configured;
   return presencial?.includes(weekday)?60:75;
  }
