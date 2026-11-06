@@ -1638,16 +1638,29 @@ function syncTeamFromControl(names){
   // Liberação após o recálculo (inclusive quando a equipe não mudou).
   document.documentElement.classList.add('dhc-team-ready');
  }
- // Escala semanal fixa: segunda a quinta em teletrabalho (75), sexta na unidade (60).
- // Metas individuais especiais (diferentes de 50/60/75) permanecem como cadastradas.
+ // Escala presencial individual informada pela gestão. JS getDay(): 0=domingo, 1=segunda ... 5=sexta.
+ // Fora dos dias presenciais, o julgador trabalha em teletrabalho (75).
+ const JC_PRESENTIAL_DAYS={
+  'eduardo':[1,2,3,4,5],
+  'lilian':[1], 'silvia':[1], 'cleonice':[1],
+  'carla':[2], 'jesse':[2],
+  'jacqueline':[3], 'mariana':[3],
+  'rodrigo':[4],
+  'paulo':[5], 'rafael':[5], 'vanessa':[5]
+ };
+ const jcFirstName=name=>String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().split(/\s+/)[0].toLowerCase();
  function jcHistoricalGoal(name,date){
   const configured=Number(draftGoals[name])||0;
   if(!configured)return 0;
   const weekday=new Date(date+'T12:00:00').getDay();
   if(weekday===0||weekday===6)return 0;
-  if(date===today())return configured;
-  if([50,60,75].includes(configured))return weekday===5?60:75;
-  return configured;
+  const first=jcFirstName(name);
+  const presencial=JC_PRESENTIAL_DAYS[first];
+  // Metas especiais (ex.: 30/40) continuam individuais em todos os dias úteis.
+  // Vanessa auxilia apenas no judicial: sua meta permanece a cadastrada na planilha.
+  if(first==='vanessa')return configured;
+  if(![50,60,75].includes(configured))return configured;
+  return presencial?.includes(weekday)?60:75;
  }
  function render(){renderWeeklyBanner();const d=$('jcDate').value,values=counts[d]||{},names=[...new Set([...Object.keys(draftGoals),...Object.keys(values)])].sort((a,b)=>a.localeCompare(b,'pt-BR'));syncTeamFromControl(names);
  const filtered=names.filter(n=>n.toLocaleLowerCase('pt-BR').includes($('jcSearch').value.toLocaleLowerCase('pt-BR')));
